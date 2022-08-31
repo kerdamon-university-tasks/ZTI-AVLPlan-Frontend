@@ -4,7 +4,7 @@ import { AVLColumnProps, AvlSheetProps } from "./types";
 
 const AVLAtomicTime = () => {
   return(
-    <Box height={8} sx={{
+    <Box height={10} sx={{
       backgroundColor: '#E8E9EF',
       '&:hover': {
         backgroundColor: 'primary.main',
