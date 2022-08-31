@@ -1,5 +1,26 @@
 import { createTheme } from '@mui/material/styles';
 
+declare module '@mui/material/styles' {
+  interface Palette {
+    available: Palette['primary'];
+  }
+  interface PaletteOptions {
+    available: PaletteOptions['primary'];
+  }
+  interface Palette {
+    maybeAvailable: Palette['primary'];
+  }
+  interface PaletteOptions {
+    maybeAvailable: PaletteOptions['primary'];
+  }
+  interface Palette {
+    notAvailable: Palette['primary'];
+  }
+  interface PaletteOptions {
+    notAvailable: PaletteOptions['primary'];
+  }
+}
+
 export const theme = createTheme({
   palette: {
     primary: {
@@ -7,5 +28,15 @@ export const theme = createTheme({
       light: '#7F80A0',
       dark: '#343545'
     },
+    available: {
+      main: '#729B5F'
+    },
+    maybeAvailable: {
+      main: '#EAC955'
+    },
+    notAvailable: {
+      main: '#E8E9EF'
+    },
   },
 });
+

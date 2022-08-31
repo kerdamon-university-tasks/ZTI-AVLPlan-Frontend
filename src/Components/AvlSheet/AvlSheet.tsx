@@ -1,13 +1,15 @@
+import { useTheme } from '@mui/material/styles';
 import { Stack } from "@mui/material";
 import Box from "@mui/material/Box";
 import { AVLColumnProps, AvlSheetProps } from "./types";
 
 const AVLAtomicTime = () => {
+  const theme = useTheme();
   return(
     <Box height={10} sx={{
-      backgroundColor: '#E8E9EF',
+      backgroundColor: 'notAvailable.main',
       '&:hover': {
-        backgroundColor: 'primary.main',
+        backgroundColor: 'primary.light',
         opacity: [0.9, 0.8, 0.7],
       },
       borderStyle: 'dashed', borderWidth: 1, borderColor: 'white'
