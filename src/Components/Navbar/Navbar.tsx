@@ -22,7 +22,7 @@ const Navbar = () => {
         <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
           AVL Plan
         </Typography>
-        {publicLinks}
+        {/* {publicLinks} */}
       </Toolbar>
     </AppBar>
     );

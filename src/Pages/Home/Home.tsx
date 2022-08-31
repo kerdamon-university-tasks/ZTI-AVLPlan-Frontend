@@ -1,9 +1,11 @@
-const Home = () => {
-    return (
-        <div>
-            Hello home world!
-        </div>
-    )
-}
+import AvlSpreadSheet from "Components/AVLSpreadSheet";
 
-export default Home;
+const Home = () => {
+  return (
+    <div style={{margin: 10}}>
+        <AvlSpreadSheet numberOfDays={5} numberOfHours={10} />
+    </div>
+    )
+  }
+  
+  export default Home;

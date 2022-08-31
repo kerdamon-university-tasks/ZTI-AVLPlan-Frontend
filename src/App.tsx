@@ -6,17 +6,19 @@ import { Route, Routes } from 'react-router-dom';
 import Home from './Pages/Home';
 import Login from './Pages/Login';
 import Navbar from './Components/Navbar';
+import Footer from 'Components/Footer';
 
 function App() {
   return (
-    <Stack>
+    <Stack sx={{minHeight: '100vh'}}>
       <Navbar />
-      <Box>
+      <Box sx={{ flex: 1 }}>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
         </Routes>
       </Box>
+      <Footer />
     </Stack>
   );
 }
