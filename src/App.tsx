@@ -7,17 +7,18 @@ import Home from './Pages/Home';
 import Login from './Pages/Login';
 import Navbar from './Components/Navbar';
 import Footer from 'Components/Footer';
+import { Container } from '@mui/material';
 
 function App() {
   return (
     <Stack sx={{minHeight: '100vh'}}>
       <Navbar />
-      <Box sx={{ flex: 1 }}>
+      <Stack alignItems='baseline' justifyContent='center' direction='row' sx={{ flex: 1 }}>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
         </Routes>
-      </Box>
+      </Stack>
       <Footer />
     </Stack>
   );
