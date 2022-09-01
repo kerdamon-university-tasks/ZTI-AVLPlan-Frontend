@@ -3,3 +3,9 @@
   margin: 0;
   box-sizing: border-box;
 }
+
+.boundingBox {
+  border-style: solid;
+  border-width: 1;
+  border-color: white;
+}
