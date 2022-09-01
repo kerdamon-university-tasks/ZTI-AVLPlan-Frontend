@@ -1,6 +1,6 @@
 import { Box, Stack } from "@mui/material"
 import { AVLColumn, AVLRow, columnWidth, rowHeight } from "./AvlSheetUtilities";
-import { AvlSheetProps } from "./types";
+import { AvlTimelineProps } from "./types";
 
 const AVLAtomicTime = () => {
   return(
@@ -52,7 +52,7 @@ const AVLHour = () => {
   )
 }
 
-export const AvlTimeline = ({ numberOfHours, numberOfDays }: AvlSheetProps) => {
+export const AvlTimeline = ({ numberOfHours, numberOfDays }: AvlTimelineProps) => {
   return (
     <Box sx={{
       backgroundColor: 'available.main',

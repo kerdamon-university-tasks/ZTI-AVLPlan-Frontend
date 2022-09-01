@@ -1,9 +1,9 @@
 import AvlSheet from "Components/AvlSheet";
 import { AvlSpreadSheetProps } from "./types";
 
-const AvlSpreadSheet = ({ numberOfHours, numberOfDays}: AvlSpreadSheetProps) => {
+const AvlSpreadSheet = ({ hourFrom, hourTo, dateFrom, dateTo }: AvlSpreadSheetProps) => {
   return (
-    <AvlSheet numberOfHours={numberOfHours} numberOfDays={numberOfDays}/>
+    <AvlSheet hourFrom={hourFrom} hourTo={hourTo} dateFrom={dateFrom} dateTo={dateTo} />
   )}
   
   export default AvlSpreadSheet;

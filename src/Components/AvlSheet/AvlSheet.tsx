@@ -4,33 +4,53 @@ import { AvlSheetProps } from "./types";
 import { AvlTimeline } from './AvlTimeline';
 import { AVLColumn, AVLRow, columnWidth, rowHeight } from "./AvlSheetUtilities";
 
-const HourColumn = () => {
+const HourColumnElement = ({hourFrom, offset}: {hourFrom: number, offset: number}) => {
   return(
     <Stack height={rowHeight} justifyContent='center' alignItems='center'>
-      <Typography sx={{color: 'primary.contrastText'}}>16:00</Typography>
+      <Typography sx={{color: 'primary.contrastText'}}>{hourFrom+offset}:00</Typography>
     </Stack>
   )
 }
 
-const DayRow = () => {
+const HourColumn = ({hourFrom, numberOfHours}: {hourFrom: number, numberOfHours: number}) => {
+  const elements = Array.from({length: numberOfHours + 1}, (_, index) => {
+    return <HourColumnElement hourFrom={hourFrom} offset={index} />;
+  });
+  return(
+    <Stack>
+      {elements}
+    </Stack>
+  )
+}
+
+const DayRowElement = ({dayFrom, offset}: {dayFrom: number, offset: number}) => {
   return(
     <Stack width={columnWidth} justifyContent='center' alignItems='center' sx={{backgroundColor: 'primary.light', borderStyle: 'solid', borderColor: 'primary.contrastText', borderWidth: 1}}>
-      <Typography sx={{color: 'primary.contrastText'}}>16:00</Typography>
+      <Typography sx={{color: 'primary.contrastText'}}>{dayFrom+offset}</Typography>
     </Stack>
   )
 }
 
-const AvlSheet = ({ numberOfHours, numberOfDays }: AvlSheetProps) => {
+const DayRow = ({dayFrom, numberOfDays}: {dayFrom: number, numberOfDays: number}) => {
+  const elements = Array.from({length: numberOfDays}, (_, index) => {
+    return <DayRowElement dayFrom={dayFrom} offset={index} />;
+  });
+  return(
+    <Stack direction='row'>
+      {elements}
+    </Stack>
+  )
+}
+
+const AvlSheet = ({ hourFrom, hourTo, dateFrom, dateTo }: AvlSheetProps) => {
+  const numberOfHours = hourTo - hourFrom;
+  const numberOfDays = dateTo - dateFrom;
   return (
     <Stack direction='row' spacing={1.5} justifyContent='center' alignItems='flex-end'>
-      <AVLColumn n={numberOfHours + 1}>
-        <HourColumn/>
-      </AVLColumn>
+      <HourColumn hourFrom={hourFrom} numberOfHours={numberOfHours}/>
       <Stack>
         <Box mb={1}>
-          <AVLRow n={numberOfDays}>
-            <DayRow/>
-          </AVLRow>
+          <DayRow dayFrom={dateFrom} numberOfDays={numberOfDays}/>
         </Box>
           <AvlTimeline numberOfHours={numberOfHours} numberOfDays={numberOfDays}/>
           <Box height={rowHeight/2}/> {/* compensation to align with hours properly */}

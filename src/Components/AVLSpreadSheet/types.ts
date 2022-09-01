@@ -1,4 +1,6 @@
 export type AvlSpreadSheetProps = {
-  numberOfHours: number;
-  numberOfDays: number
+  hourFrom: number;
+  hourTo: number;
+  dateFrom: number;
+  dateTo: number;
 }

@@ -5,7 +5,7 @@ const Home = () => {
   return (
     <div style={{margin: 40}}>
       <Card sx={{padding: 5, backgroundColor: "#3E3F59"}}>
-        <AvlSpreadSheet numberOfDays={14} numberOfHours={10} />
+        <AvlSpreadSheet hourFrom={10} hourTo={15} dateFrom={25} dateTo={30} />
       </Card>
     </div>
     )
