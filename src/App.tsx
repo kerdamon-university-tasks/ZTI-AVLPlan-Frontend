@@ -6,6 +6,7 @@ import Login from './Pages/Login';
 import Navbar from './Components/Navbar';
 import Footer from 'Components/Footer';
 import { useTheme } from '@mui/material/styles';
+import Sheet from 'Pages/Sheet';
 
 function App() {
   const theme = useTheme();
@@ -15,6 +16,7 @@ function App() {
       <Stack alignItems='baseline' justifyContent='center' direction='row' sx={{ flex: 1, backgroundColor: theme.palette.primary.dark }}>
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/timeline/:id" element={<Sheet />} />
           <Route path="/login" element={<Login />} />
         </Routes>
       </Stack>

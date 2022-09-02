@@ -15,6 +15,8 @@ const Navbar = () => {
         edge="start"
         color="inherit"
         aria-label="menu"
+        component={Link}
+        to="/"
         sx={{ mr: 2 }}
         >
           <ClockIcon />

@@ -1,25 +1,23 @@
-import { Card } from "@mui/material";
-import AvlSpreadSheet from "Components/AVLSpreadSheet";
-import { useQuery } from '@tanstack/react-query';
-import { fetchTimelines } from "Api";
+import { Button, Card, Stack, TextField } from "@mui/material";
+import { useState } from "react";
+
+import {Link } from "react-router-dom";
 
 const Home = () => {
-  const {data: timelines, isError} = useQuery(['timelines'], fetchTimelines)
+  const [id, setId] = useState("");
+
+  const handleChange = (e:any) => {
+    setId(e.target.value);
+  }
 
   return (
     <div style={{margin: 40}}>
       <Card sx={{padding: 5, backgroundColor: "#3E3F59"}}>
-        <AvlSpreadSheet hourFrom={10} hourTo={15} dateFrom={25} dateTo={30} />
+        <Stack spacing={2}>
+          <TextField label="Timeline id" variant="outlined" onChange={handleChange} color='secondary'/>
+          <Button color="secondary" variant="outlined" component={Link} to={"/timeline/" + id}>Go do timeline</Button>
+        </Stack>
       </Card>
-      <>
-      {
-        isError ? (
-          console.log('Nie udało się pobrać tych timelinów')
-        ) : (
-          console.log(timelines)
-        )
-      }
-      </>
     </div>
     )
   }
