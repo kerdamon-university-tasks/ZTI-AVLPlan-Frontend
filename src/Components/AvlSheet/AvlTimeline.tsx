@@ -1,12 +1,12 @@
 import { Box, Stack } from "@mui/material"
 import { useState } from "react";
-import { AVLColumn, AVLRow, columnWidth, rowHeight } from "./AvlSheetUtilities";
+import { columnWidth, rowHeight } from "./AvlSheetUtilities";
 import { AvlTimelineProps } from "./types";
 
 const AVLAtomicTime = ({availabilityType}: {availabilityType: number}) => {
   return(
     <Box height={rowHeight/4} sx={{
-      backgroundColor: availabilityType == 0 ? 'notAvailable.main' : 'available.main',
+      backgroundColor: availabilityType === 0 ? 'notAvailable.main' : 'available.main',
       '&:hover': {
         backgroundColor: 'primary.light',
       },
@@ -18,7 +18,7 @@ const AVLAtomicTime = ({availabilityType}: {availabilityType: number}) => {
 const AVLAtomicTimeFull = ({availabilityType}: {availabilityType: number}) => {
   return(
     <Box height={rowHeight/4} sx={{
-      backgroundColor: availabilityType == 0 ? 'notAvailable.main' : 'available.main',
+      backgroundColor: availabilityType === 0 ? 'notAvailable.main' : 'available.main',
       '&:hover': {
         backgroundColor: 'primary.light',
       },
@@ -30,7 +30,7 @@ const AVLAtomicTimeFull = ({availabilityType}: {availabilityType: number}) => {
 const AVLAtomicTimeHalf = ({availabilityType}: {availabilityType: number}) => {
   return(
     <Box height={rowHeight/4} sx={{
-      backgroundColor: availabilityType == 0 ? 'notAvailable.main' : 'available.main',
+      backgroundColor: availabilityType === 0 ? 'notAvailable.main' : 'available.main',
       '&:hover': {
         backgroundColor: 'primary.light',
       },
@@ -75,6 +75,5 @@ export const AvlTimeline = ({ numberOfHours, numberOfDays }: AvlTimelineProps) =
         ))}
       </Stack>
     </Box>
-
   )
 }
