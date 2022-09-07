@@ -5,9 +5,10 @@ import { useParams } from "react-router-dom";
 import AvlSheet from "Components/AvlSheet";
 
 const Sheet = () => {
-  let {id} = useParams();
-  
+  let {id} = useParams();  
   const {data: timeline, isLoading, isError} = useQuery(['timeline'], () => fetchTimeline(id)) // dodać id do zapytania
+
+  
 
   return (
     <div style={{margin: 40}}>
