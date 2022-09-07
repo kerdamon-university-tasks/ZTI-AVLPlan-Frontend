@@ -1,12 +1,14 @@
 export type TTimeline = {
   user: string;
-  hourFrom: number;
-  hourTo: number;
+  hourFrom: Date;
+  hourTo: Date;
+  dateFrom: Date;
+  dateTo: Date;
   avlspans: AvlSpan[];
 }
 
 export type AvlSpan = {
-  timeFrom: string;
-  timeTo: string;
+  timeFrom: Date;
+  timeTo: Date;
   availabilityType: number;
 }
