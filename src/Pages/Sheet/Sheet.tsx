@@ -1,18 +1,16 @@
 import { Card, Typography } from "@mui/material";
 import { useQuery } from '@tanstack/react-query';
-import { fetchTimelines } from "Api";
+import { fetchTimeline } from "Api";
 import { useParams } from "react-router-dom";
 import AvlSheet from "Components/AvlSheet";
 
 const Sheet = () => {
   let {id} = useParams();
-  const {data: timelines, isLoading, isError} = useQuery(['timelines'], fetchTimelines) // dodać id do zapytania
+  
+  const {data: timeline, isLoading, isError} = useQuery(['timeline'], () => fetchTimeline(id)) // dodać id do zapytania
 
-  isError ? (
-    console.log('Nie udało się pobrać tych timelinów')
-  ) : (
-    console.log(timelines)
-  )
+  console.log(timeline?.hourFrom);
+  console.log(timeline?.hourTo);
 
   return (
     <div style={{margin: 40}}>
@@ -24,7 +22,7 @@ const Sheet = () => {
             isError ? (
               <Typography>Error</Typography>
             ) : (
-              <AvlSheet hourFrom={10} hourTo={15} dateFrom={25} dateTo={30} />
+              <AvlSheet hourFrom={4} hourTo={5} dateFrom={25} dateTo={30} />
             )
           )
         }

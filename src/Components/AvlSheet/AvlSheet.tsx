@@ -1,8 +1,7 @@
-import Grid from '@mui/material/Unstable_Grid2'
 import { Box, Stack, Typography } from "@mui/material";
 import { AvlSheetProps } from "./types";
 import { AvlTimeline } from './AvlTimeline';
-import { AVLColumn, AVLRow, columnWidth, rowHeight } from "./AvlSheetUtilities";
+import { columnWidth, rowHeight } from "./AvlSheetUtilities";
 
 const HourColumnElement = ({hourFrom, offset}: {hourFrom: number, offset: number}) => {
   return(
@@ -14,7 +13,7 @@ const HourColumnElement = ({hourFrom, offset}: {hourFrom: number, offset: number
 
 const HourColumn = ({hourFrom, numberOfHours}: {hourFrom: number, numberOfHours: number}) => {
   const elements = Array.from({length: numberOfHours + 1}, (_, index) => {
-    return <HourColumnElement hourFrom={hourFrom} offset={index} />;
+    return <HourColumnElement key={index} hourFrom={hourFrom} offset={index} />;
   });
   return(
     <Stack>
@@ -33,7 +32,7 @@ const DayRowElement = ({dayFrom, offset}: {dayFrom: number, offset: number}) => 
 
 const DayRow = ({dayFrom, numberOfDays}: {dayFrom: number, numberOfDays: number}) => {
   const elements = Array.from({length: numberOfDays}, (_, index) => {
-    return <DayRowElement dayFrom={dayFrom} offset={index} />;
+    return <DayRowElement key={index} dayFrom={dayFrom} offset={index} />;
   });
   return(
     <Stack direction='row'>

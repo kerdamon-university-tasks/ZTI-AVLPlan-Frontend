@@ -8,7 +8,7 @@ export const AVLColumn = ({n, children}: AVLRowColumnProps) => {
   return(
     <Stack>
       {Array.from(Array(n)).map((_, index) => (
-        <Box>
+        <Box key={index}>
           {children}
         </Box>
       ))}
@@ -20,7 +20,7 @@ export const AVLRow = ({n, children}: AVLRowColumnProps) => {
   return(
     <Stack direction='row'>
       {Array.from(Array(n)).map((_, index) => (
-        <Box>
+        <Box key={index}>
           {children}
         </Box>
       ))}
