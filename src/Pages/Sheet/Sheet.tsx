@@ -19,7 +19,7 @@ const Sheet = () => {
             isError ? (
               <Typography>Error</Typography>
             ) : (
-              <AvlSheet hourFrom={timeline.hourFrom.getHours()} hourTo={timeline.hourTo.getHours()} dateFrom={timeline.dateFrom.getDate()} dateTo={timeline.dateTo.getDate()} />
+              <AvlSheet hourFrom={timeline.dateTimeFrom.getHours()} hourTo={timeline.dateTimeTo.getHours()} dateFrom={timeline.dateTimeFrom.getDate()} dateTo={timeline.dateTimeTo.getDate()} />
             )
           )
         }

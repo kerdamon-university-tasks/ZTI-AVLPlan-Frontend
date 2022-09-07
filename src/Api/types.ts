@@ -1,9 +1,7 @@
 export type TTimeline = {
   user: string;
-  hourFrom: Date;
-  hourTo: Date;
-  dateFrom: Date;
-  dateTo: Date;
+  dateTimeFrom: Date;
+  dateTimeTo: Date;
   avlspans: AvlSpan[];
 }
 
