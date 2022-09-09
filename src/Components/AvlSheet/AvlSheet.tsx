@@ -43,23 +43,32 @@ const DayRow = ({dayFrom, numberOfDays}: {dayFrom: number, numberOfDays: number}
 }
 
 const crateAvailabilityTypeArrayFromAvlSpans = (numberOfDays:number, numberOfHours:number, hourFrom:number, avlSpans: AvlSpan[]) => {
-  const availabilityTypeArray = new Array(numberOfDays).fill(
-    new Array(numberOfHours).fill(
-      [0, 0, 0, 0]
-    )
-  );
+  const availabilityTypeArray = new Array(numberOfDays);
+  for (let day = 0; day < numberOfDays; day++) {
+    availabilityTypeArray[day] = new Array(numberOfHours);
+    for (let hour = 0; hour < numberOfHours; hour++) {
+      availabilityTypeArray[day][hour] = new Array(4);
+      for (let quarter = 0; quarter < 4; quarter++) {
+        availabilityTypeArray[day][hour][quarter] = 0
+      }
+    }
+  }
+
+  
 
   avlSpans.forEach(avlSpan => {
     let quarterIndex = avlSpan.timeFrom.quarterIndex;
-    for (let day = avlSpan.timeFrom.day; day < avlSpan.timeTo.day; day++) {
-      for (; quarterIndex < numberOfHours; quarterIndex++) {
-        if(day >= avlSpan.timeTo.day && quarterIndex >= avlSpan.timeTo.quarterIndex)
-          break;
+    
+    for (let day = avlSpan.timeFrom.day; day <= avlSpan.timeTo.day; day++) {
+      while(quarterIndex < numberOfHours * 4){
         let hour = Math.floor(quarterIndex/4);
         let quarter = quarterIndex%4;
         availabilityTypeArray[day][hour][quarter] = 1;
+        quarterIndex++;
+        if(day >= avlSpan.timeTo.day && quarterIndex >= avlSpan.timeTo.quarterIndex)
+          break;
       }
-      quarterIndex = hourFrom * 4;
+      quarterIndex = 0;
     }
   });
 
@@ -67,6 +76,7 @@ const crateAvailabilityTypeArrayFromAvlSpans = (numberOfDays:number, numberOfHou
 }
 
 const AvlSheet = ({ hourFrom, hourTo, dateFrom, dateTo, avlSpans }: AvlSheetProps) => {
+  
   const numberOfHours = hourTo - hourFrom;
   const numberOfDays = dateTo - dateFrom;
 

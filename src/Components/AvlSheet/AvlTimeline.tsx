@@ -41,7 +41,6 @@ const AVLAtomicTimeHalf = ({availabilityType}: {availabilityType: number}) => {
 
 
 const AVLHour = ({hourAvailabilityTypes}: {hourAvailabilityTypes: number[]}) => {
-  console.log(hourAvailabilityTypes);
   return(
     <Stack width={columnWidth}>
       <Box>
