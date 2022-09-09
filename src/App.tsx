@@ -7,6 +7,7 @@ import Navbar from './Components/Navbar';
 import Footer from 'Components/Footer';
 import { useTheme } from '@mui/material/styles';
 import Sheet from 'Pages/Sheet';
+import NewTimeline from 'Pages/NewTimeline';
 
 function App() {
   const theme = useTheme();
@@ -18,6 +19,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/timeline/:id" element={<Sheet />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/new-timeline/" element={<NewTimeline />} />
         </Routes>
       </Stack>
       <Footer />

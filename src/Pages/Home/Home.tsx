@@ -18,6 +18,9 @@ const Home = () => {
           <Button color="secondary" variant="outlined" component={Link} to={"/timeline/" + id}>Go do timeline</Button>
         </Stack>
       </Card>
+      <Card sx={{padding: 5, backgroundColor: "#3E3F59"}}>
+        <Button color="secondary" variant="outlined" component={Link} to={"/new-timeline"}>Create new Timeline</Button>
+      </Card>
     </div>
     )
   }
