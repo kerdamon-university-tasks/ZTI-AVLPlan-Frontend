@@ -8,8 +8,6 @@ const Sheet = () => {
   let {id} = useParams();  
   const {data: timeline, isLoading, isError} = useQuery(['timeline'], () => fetchTimeline(id)) // dodać id do zapytania
 
-  
-
   return (
     <div style={{margin: 40}}>
       <Card sx={{padding: 5, backgroundColor: "#3E3F59"}}>
@@ -20,7 +18,7 @@ const Sheet = () => {
             isError ? (
               <Typography>Error</Typography>
             ) : (
-              <AvlSheet hourFrom={timeline.dateTimeFrom.getHours()} hourTo={timeline.dateTimeTo.getHours()} dateFrom={timeline.dateTimeFrom.getDate()} dateTo={timeline.dateTimeTo.getDate()} />
+              <AvlSheet hourFrom={timeline.dateTimeFrom.getHours()} hourTo={timeline.dateTimeTo.getHours()} dateFrom={timeline.dateTimeFrom.getDate()} dateTo={timeline.dateTimeTo.getDate()} avlSpans={timeline.avlspans}/>
             )
           )
         }

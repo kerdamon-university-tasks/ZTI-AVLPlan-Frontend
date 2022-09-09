@@ -54,9 +54,8 @@ const AVLHour = ({hourAvailabilityTypes}: {hourAvailabilityTypes: number[]}) => 
   )
 }
 
-export const AvlTimeline = ({ numberOfHours, numberOfDays }: AvlTimelineProps) => {
-  const arr = new Array(numberOfDays).fill(new Array(numberOfHours).fill([0, 0, 0, 0]));
-  const [stateTable, setStateTable] = useState<number[][][]>(arr); //2x2 table of hours, each hours has 4 quarters. Number represent availability type, that is color
+export const AvlTimeline = ({ numberOfHours, numberOfDays, availabilityTypeArray }: AvlTimelineProps) => {
+  const [stateTable, setStateTable] = useState<number[][][]>(availabilityTypeArray); //2x2 table of hours, each hours has 4 quarters. Number represent availability type, that is color
 
   return (
     <Box sx={{

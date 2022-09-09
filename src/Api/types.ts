@@ -6,7 +6,12 @@ export type TTimeline = {
 }
 
 export type AvlSpan = {
-  timeFrom: Date;
-  timeTo: Date;
+  timeFrom: AvlTimelineCoordinates;
+  timeTo: AvlTimelineCoordinates;
   availabilityType: number;
+}
+
+export type AvlTimelineCoordinates = {
+  quarterIndex: number;
+  day: number;
 }

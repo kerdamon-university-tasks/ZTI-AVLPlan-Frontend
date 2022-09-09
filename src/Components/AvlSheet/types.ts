@@ -1,3 +1,4 @@
+import { AvlSpan } from "Api/types";
 import React from "react";
 
 export type AVLRowColumnProps = {
@@ -10,9 +11,11 @@ export type AvlSheetProps = {
   hourTo: number;
   dateFrom: number;
   dateTo: number;
+  avlSpans: AvlSpan[];
 }
 
 export type AvlTimelineProps = {
   numberOfHours: number;
   numberOfDays: number;
+  availabilityTypeArray: number[][][];
 }
