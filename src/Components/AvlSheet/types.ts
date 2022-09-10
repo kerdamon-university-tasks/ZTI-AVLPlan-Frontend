@@ -17,13 +17,13 @@ export type AvlSheetProps = {
 export type AvlTimelineProps = {
   numberOfHours: number;
   numberOfDays: number;
-  availabilityTypeArray: number[][][];
+  avlSpans: AvlSpan[];
+  hourFrom: number;
 }
 
 export type TimelineState = {
   isSelecting: boolean;
   firstSelection: AvlTimelineCoordinates;
-  secondSelection: AvlTimelineCoordinates;
 }
 
 export type AVLAtomicTimeProps = {

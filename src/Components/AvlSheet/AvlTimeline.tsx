@@ -1,5 +1,5 @@
 import { Box, Stack } from "@mui/material"
-import { AvlTimelineCoordinates } from "Api/types";
+import { AvlSpan, AvlTimelineCoordinates } from "Api/types";
 import React from "react";
 import { useState } from "react";
 import { columnWidth, modifyAvailabilityTypeArray, rowHeight } from "./AvlSheetUtilities";
@@ -35,16 +35,35 @@ const AVLHour = ({hourAvailabilityTypes, coordinates, onTimelineClick}: {hourAva
 const TimelineContext = React.createContext({
   isSelecting: false, 
   firstSelection: {day: 0, quarterIndex: 0}, 
-  secondSelection: {day: 0, quarterIndex: 0}
 });
 
-export const AvlTimeline = ({ numberOfHours, numberOfDays, availabilityTypeArray }: AvlTimelineProps) => {
+const crateAvailabilityTypeArrayFromAvlSpans = (numberOfDays:number, numberOfHours:number, hourFrom:number, avlSpans: AvlSpan[]) => {
+  const availabilityTypeArray = new Array(numberOfDays);
+  for (let day = 0; day < numberOfDays; day++) {
+    availabilityTypeArray[day] = new Array(numberOfHours);
+    for (let hour = 0; hour < numberOfHours; hour++) {
+      availabilityTypeArray[day][hour] = new Array(4);
+      for (let quarter = 0; quarter < 4; quarter++) {
+        availabilityTypeArray[day][hour][quarter] = 0
+      }
+    }
+  }
+
+  avlSpans.forEach(avlSpan => {
+    modifyAvailabilityTypeArray(availabilityTypeArray, avlSpan, numberOfHours);
+  });
+
+  return availabilityTypeArray;
+}
+
+export const AvlTimeline = ({ numberOfHours, numberOfDays, avlSpans, hourFrom }: AvlTimelineProps) => {
+  const availabilityTypeArray = crateAvailabilityTypeArrayFromAvlSpans(numberOfDays, numberOfHours, hourFrom, avlSpans);
+
   const [stateTable, setStateTable] = useState<number[][][]>(availabilityTypeArray); //2x2 table of hours, each hours has 4 quarters. Number represent availability type, that is color
 
   const [timelineState, setTimelineState] = useState<TimelineState>({
     isSelecting: false, 
     firstSelection: {day: 0, quarterIndex: 0}, 
-    secondSelection: {day: 0, quarterIndex: 0}
   });
 
   const onTimelineClick = (coordinates:AvlTimelineCoordinates) => {
@@ -67,7 +86,6 @@ export const AvlTimeline = ({ numberOfHours, numberOfDays, availabilityTypeArray
       setTimelineState({
         isSelecting: false, 
         firstSelection: {day: 0, quarterIndex: 0}, 
-        secondSelection: {day: 0, quarterIndex: 0}
       });
       newStateTable = [...stateTable];
       modifyAvailabilityTypeArray(newStateTable, newAvlSpan, numberOfHours);
@@ -76,7 +94,6 @@ export const AvlTimeline = ({ numberOfHours, numberOfDays, availabilityTypeArray
       setTimelineState({
           isSelecting: true, 
           firstSelection: {day: coordinates.day, quarterIndex: coordinates.quarterIndex}, 
-          secondSelection: {day: 0, quarterIndex: 0}
         });
       newStateTable[coordinates.day][hour][quarter] = 1;
       setStateTable(newStateTable);
@@ -104,8 +121,3 @@ export const AvlTimeline = ({ numberOfHours, numberOfDays, availabilityTypeArray
     </TimelineContext.Provider>
   )
 }
-
-// przekazywać koordynaty
-// przy kliknięciu dodaje nowego spana do listy avlspanów
-// timeline oprócz tablicy stanów ma listę avlspanów
-// 
