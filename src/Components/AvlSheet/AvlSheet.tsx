@@ -42,6 +42,21 @@ const DayRow = ({dayFrom, numberOfDays}: {dayFrom: number, numberOfDays: number}
   )
 }
 
+const modifyAvailabilityTypeArray = (availabilityTypeArray:any[], avlSpan: AvlSpan, numberOfHours:number) => {
+  let quarterIndex = avlSpan.timeFrom.quarterIndex;
+  for (let day = avlSpan.timeFrom.day; day <= avlSpan.timeTo.day; day++) {
+    while(quarterIndex < numberOfHours * 4){
+      let hour = Math.floor(quarterIndex/4);
+      let quarter = quarterIndex%4;
+      availabilityTypeArray[day][hour][quarter] = 1;
+      quarterIndex++;
+      if(day >= avlSpan.timeTo.day && quarterIndex >= avlSpan.timeTo.quarterIndex)
+        break;
+    }
+    quarterIndex = 0;
+  }
+}
+
 const crateAvailabilityTypeArrayFromAvlSpans = (numberOfDays:number, numberOfHours:number, hourFrom:number, avlSpans: AvlSpan[]) => {
   const availabilityTypeArray = new Array(numberOfDays);
   for (let day = 0; day < numberOfDays; day++) {
@@ -54,22 +69,8 @@ const crateAvailabilityTypeArrayFromAvlSpans = (numberOfDays:number, numberOfHou
     }
   }
 
-  
-
   avlSpans.forEach(avlSpan => {
-    let quarterIndex = avlSpan.timeFrom.quarterIndex;
-    
-    for (let day = avlSpan.timeFrom.day; day <= avlSpan.timeTo.day; day++) {
-      while(quarterIndex < numberOfHours * 4){
-        let hour = Math.floor(quarterIndex/4);
-        let quarter = quarterIndex%4;
-        availabilityTypeArray[day][hour][quarter] = 1;
-        quarterIndex++;
-        if(day >= avlSpan.timeTo.day && quarterIndex >= avlSpan.timeTo.quarterIndex)
-          break;
-      }
-      quarterIndex = 0;
-    }
+    modifyAvailabilityTypeArray(availabilityTypeArray, avlSpan, numberOfHours);
   });
 
   return availabilityTypeArray;
