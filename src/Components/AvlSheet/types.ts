@@ -34,5 +34,10 @@ export type AVLAtomicTimeProps = {
     borderColor?:string, 
     borderTopColor?:string
   }, 
-  coordinates:AvlTimelineCoordinates
+  coordinates:AvlTimelineCoordinates,
+  onTimelineClick: TimelineClickFunc
+}
+
+export type TimelineClickFunc = {
+  (coordinates: AvlTimelineCoordinates): void
 }
