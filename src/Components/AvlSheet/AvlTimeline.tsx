@@ -4,51 +4,26 @@ import { useState } from "react";
 import { columnWidth, rowHeight } from "./AvlSheetUtilities";
 import { AvlTimelineProps, TimelineState } from "./types";
 
-const AVLAtomicTime = ({availabilityType}: {availabilityType: number}) => {
+const AVLAtomicTime = ({availabilityType, borderStyles}: {availabilityType: number, borderStyles: {borderStyle: string, borderWidth: number, borderColor?:string, borderTopColor?:string}}) => {
   return(
     <Box height={rowHeight/4} sx={{
       backgroundColor: availabilityType === 0 ? 'notAvailable.main' : 'available.main',
       '&:hover': {
         backgroundColor: 'primary.light',
       },
-      borderStyle: 'dashed solid none none', borderWidth: 1, borderColor: 'rgba(255, 255, 255, .8)',
+      borderStyle: borderStyles.borderStyle, borderWidth: borderStyles.borderWidth, borderColor: borderStyles.borderColor, borderTopColor: borderStyles.borderTopColor,
     }}/>
   )
 }
-
-const AVLAtomicTimeFull = ({availabilityType}: {availabilityType: number}) => {
-  return(
-    <Box height={rowHeight/4} sx={{
-      backgroundColor: availabilityType === 0 ? 'notAvailable.main' : 'available.main',
-      '&:hover': {
-        backgroundColor: 'primary.light',
-      },
-      borderStyle: 'solid solid none none', borderWidth: 1, borderColor: 'white',
-    }}/>
-  )
-}
-
-const AVLAtomicTimeHalf = ({availabilityType}: {availabilityType: number}) => {
-  return(
-    <Box height={rowHeight/4} sx={{
-      backgroundColor: availabilityType === 0 ? 'notAvailable.main' : 'available.main',
-      '&:hover': {
-        backgroundColor: 'primary.light',
-      },
-      borderStyle: 'solid solid none none', borderWidth: 1, borderColor: 'white', borderTopColor: 'rgba(255, 255, 255, .5)',
-    }}/>
-  )
-}
-
 
 const AVLHour = ({hourAvailabilityTypes}: {hourAvailabilityTypes: number[]}) => {
   return(
     <Stack width={columnWidth}>
       <Box>
-        <AVLAtomicTimeFull availabilityType={hourAvailabilityTypes[0]}/>
-        <AVLAtomicTime availabilityType={hourAvailabilityTypes[1]}/>
-        <AVLAtomicTimeHalf availabilityType={hourAvailabilityTypes[2]}/>
-        <AVLAtomicTime availabilityType={hourAvailabilityTypes[3]}/>
+        <AVLAtomicTime availabilityType={hourAvailabilityTypes[0]} borderStyles={{borderStyle: 'solid solid none none', borderWidth: 1, borderColor: 'white',}}/>
+        <AVLAtomicTime availabilityType={hourAvailabilityTypes[1]} borderStyles={{borderStyle: 'dashed solid none none', borderWidth: 1, borderColor: 'rgba(255, 255, 255, .8)'}}/>
+        <AVLAtomicTime availabilityType={hourAvailabilityTypes[2]} borderStyles={{borderStyle: 'solid solid none none', borderWidth: 1, borderColor: 'white', borderTopColor: 'rgba(255, 255, 255, .5)'}}/>
+        <AVLAtomicTime availabilityType={hourAvailabilityTypes[3]} borderStyles={{borderStyle: 'dashed solid none none', borderWidth: 1, borderColor: 'rgba(255, 255, 255, .8)'}}/>
       </Box>
     </Stack>
   )
