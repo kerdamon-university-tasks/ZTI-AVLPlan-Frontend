@@ -2,7 +2,7 @@ import { Box, Stack } from "@mui/material"
 import { AvlTimelineCoordinates } from "Api/types";
 import React from "react";
 import { useState } from "react";
-import { columnWidth, rowHeight } from "./AvlSheetUtilities";
+import { columnWidth, modifyAvailabilityTypeArray, rowHeight } from "./AvlSheetUtilities";
 import { AVLAtomicTimeProps, AvlTimelineProps, TimelineClickFunc, TimelineState } from "./types";
 
 const AVLAtomicTime = ({availabilityType, borderStyles, coordinates, onTimelineClick}: AVLAtomicTimeProps) => {
@@ -48,10 +48,36 @@ export const AvlTimeline = ({ numberOfHours, numberOfDays, availabilityTypeArray
   });
 
   const onTimelineClick = (coordinates:AvlTimelineCoordinates) => {
-    if(!timelineState.isSelecting){
-      let hour = Math.floor(coordinates.quarterIndex/4);
-      let quarter = coordinates.quarterIndex%4;
-      let newStateTable = [...stateTable];
+    let hour = Math.floor(coordinates.quarterIndex/4);
+    let quarter = coordinates.quarterIndex%4;
+    let newStateTable = [...stateTable];
+
+    if(timelineState.isSelecting){
+      let newAvlSpan = {
+        timeFrom: {
+          quarterIndex: timelineState.firstSelection.quarterIndex,
+          day: timelineState.firstSelection.day
+        },
+        timeTo: {
+          quarterIndex: coordinates.quarterIndex + 1,
+          day: coordinates.day
+        },
+        availabilityType: 1
+      };
+      setTimelineState({
+        isSelecting: false, 
+        firstSelection: {day: 0, quarterIndex: 0}, 
+        secondSelection: {day: 0, quarterIndex: 0}
+      });
+      newStateTable = [...stateTable];
+      modifyAvailabilityTypeArray(newStateTable, newAvlSpan, numberOfHours);
+      setStateTable(newStateTable);
+    } else {
+      setTimelineState({
+          isSelecting: true, 
+          firstSelection: {day: coordinates.day, quarterIndex: coordinates.quarterIndex}, 
+          secondSelection: {day: 0, quarterIndex: 0}
+        });
       newStateTable[coordinates.day][hour][quarter] = 1;
       setStateTable(newStateTable);
     }

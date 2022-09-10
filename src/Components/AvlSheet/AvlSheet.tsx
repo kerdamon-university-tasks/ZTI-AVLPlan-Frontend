@@ -1,7 +1,7 @@
 import { Box, Stack, Typography } from "@mui/material";
 import { AvlSheetProps } from "./types";
 import { AvlTimeline } from './AvlTimeline';
-import { columnWidth, rowHeight } from "./AvlSheetUtilities";
+import { columnWidth, modifyAvailabilityTypeArray, rowHeight } from "./AvlSheetUtilities";
 import { AvlSpan } from "Api/types";
 
 const HourColumnElement = ({hourFrom, offset}: {hourFrom: number, offset: number}) => {
@@ -40,21 +40,6 @@ const DayRow = ({dayFrom, numberOfDays}: {dayFrom: number, numberOfDays: number}
       {elements}
     </Stack>
   )
-}
-
-const modifyAvailabilityTypeArray = (availabilityTypeArray:any[], avlSpan: AvlSpan, numberOfHours:number) => {
-  let quarterIndex = avlSpan.timeFrom.quarterIndex;
-  for (let day = avlSpan.timeFrom.day; day <= avlSpan.timeTo.day; day++) {
-    while(quarterIndex < numberOfHours * 4){
-      let hour = Math.floor(quarterIndex/4);
-      let quarter = quarterIndex%4;
-      availabilityTypeArray[day][hour][quarter] = 1;
-      quarterIndex++;
-      if(day >= avlSpan.timeTo.day && quarterIndex >= avlSpan.timeTo.quarterIndex)
-        break;
-    }
-    quarterIndex = 0;
-  }
 }
 
 const crateAvailabilityTypeArrayFromAvlSpans = (numberOfDays:number, numberOfHours:number, hourFrom:number, avlSpans: AvlSpan[]) => {
