@@ -1,4 +1,4 @@
-import { AvlSpan } from "Api/types";
+import { AvlSpan, AvlTimelineCoordinates } from "Api/types";
 import React from "react";
 
 export type AVLRowColumnProps = {
@@ -18,4 +18,10 @@ export type AvlTimelineProps = {
   numberOfHours: number;
   numberOfDays: number;
   availabilityTypeArray: number[][][];
+}
+
+export type TimelineState = {
+  isSelecting: boolean;
+  firstSelection: AvlTimelineCoordinates;
+  secondSelection: AvlTimelineCoordinates;
 }

@@ -1,7 +1,8 @@
 import { Box, Stack } from "@mui/material"
+import React from "react";
 import { useState } from "react";
 import { columnWidth, rowHeight } from "./AvlSheetUtilities";
-import { AvlTimelineProps } from "./types";
+import { AvlTimelineProps, TimelineState } from "./types";
 
 const AVLAtomicTime = ({availabilityType}: {availabilityType: number}) => {
   return(
@@ -53,25 +54,45 @@ const AVLHour = ({hourAvailabilityTypes}: {hourAvailabilityTypes: number[]}) => 
   )
 }
 
+const TimelineContext = React.createContext({
+  isSelecting: false, 
+  firstSelection: {day: 0, quarterIndex: 0}, 
+  secondSelection: {day: 0, quarterIndex: 0}
+});
+
 export const AvlTimeline = ({ numberOfHours, numberOfDays, availabilityTypeArray }: AvlTimelineProps) => {
   const [stateTable, setStateTable] = useState<number[][][]>(availabilityTypeArray); //2x2 table of hours, each hours has 4 quarters. Number represent availability type, that is color
 
+  const [timelineState, setTimelineState] = useState<TimelineState>({
+    isSelecting: false, 
+    firstSelection: {day: 0, quarterIndex: 0}, 
+    secondSelection: {day: 0, quarterIndex: 0}
+  });
+
   return (
-    <Box sx={{
-      backgroundColor: 'available.main',
-      borderStyle: 'none none solid solid', borderWidth: 1, borderColor: 'white',
-    }}>
-      <Stack direction='row'>
-        {Array.from(Array(numberOfDays)).map((_, i) => (
-            <Stack key={i}>
-              {Array.from(Array(numberOfHours)).map((_, j) => (
-                <Box key={j}>
-                  <AVLHour hourAvailabilityTypes={stateTable[i][j]}/>
-                </Box>
-              ))}
-            </Stack>
-        ))}
-      </Stack>
-    </Box>
+    <TimelineContext.Provider value={timelineState}>
+      <Box sx={{
+        backgroundColor: 'available.main',
+        borderStyle: 'none none solid solid', borderWidth: 1, borderColor: 'white',
+      }}>
+        <Stack direction='row'>
+          {Array.from(Array(numberOfDays)).map((_, i) => (
+              <Stack key={i}>
+                {Array.from(Array(numberOfHours)).map((_, j) => (
+                  <Box key={j}>
+                    <AVLHour hourAvailabilityTypes={stateTable[i][j]}/>
+                  </Box>
+                ))}
+              </Stack>
+          ))}
+        </Stack>
+      </Box>
+    </TimelineContext.Provider>
+
   )
 }
+
+// przekazywać koordynaty
+// przy kliknięciu dodaje nowego spana do listy avlspanów
+// timeline oprócz tablicy stanów ma listę avlspanów
+// 
