@@ -1,10 +1,11 @@
 import { Box, Stack } from "@mui/material"
+import { AvlTimelineCoordinates } from "Api/types";
 import React from "react";
 import { useState } from "react";
 import { columnWidth, rowHeight } from "./AvlSheetUtilities";
-import { AvlTimelineProps, TimelineState } from "./types";
+import { AVLAtomicTimeProps, AvlTimelineProps, TimelineState } from "./types";
 
-const AVLAtomicTime = ({availabilityType, borderStyles}: {availabilityType: number, borderStyles: {borderStyle: string, borderWidth: number, borderColor?:string, borderTopColor?:string}}) => {
+const AVLAtomicTime = ({availabilityType, borderStyles, coordinates}: AVLAtomicTimeProps) => {
   return(
     <Box height={rowHeight/4} sx={{
       backgroundColor: availabilityType === 0 ? 'notAvailable.main' : 'available.main',
@@ -16,14 +17,14 @@ const AVLAtomicTime = ({availabilityType, borderStyles}: {availabilityType: numb
   )
 }
 
-const AVLHour = ({hourAvailabilityTypes}: {hourAvailabilityTypes: number[]}) => {
+const AVLHour = ({hourAvailabilityTypes, coordinates}: {hourAvailabilityTypes: number[], coordinates:AvlTimelineCoordinates}) => {
   return(
     <Stack width={columnWidth}>
       <Box>
-        <AVLAtomicTime availabilityType={hourAvailabilityTypes[0]} borderStyles={{borderStyle: 'solid solid none none', borderWidth: 1, borderColor: 'white',}}/>
-        <AVLAtomicTime availabilityType={hourAvailabilityTypes[1]} borderStyles={{borderStyle: 'dashed solid none none', borderWidth: 1, borderColor: 'rgba(255, 255, 255, .8)'}}/>
-        <AVLAtomicTime availabilityType={hourAvailabilityTypes[2]} borderStyles={{borderStyle: 'solid solid none none', borderWidth: 1, borderColor: 'white', borderTopColor: 'rgba(255, 255, 255, .5)'}}/>
-        <AVLAtomicTime availabilityType={hourAvailabilityTypes[3]} borderStyles={{borderStyle: 'dashed solid none none', borderWidth: 1, borderColor: 'rgba(255, 255, 255, .8)'}}/>
+        <AVLAtomicTime availabilityType={hourAvailabilityTypes[0]} borderStyles={{borderStyle: 'solid solid none none', borderWidth: 1, borderColor: 'white'}} coordinates={{quarterIndex: coordinates.quarterIndex, day: coordinates.day}}/>
+        <AVLAtomicTime availabilityType={hourAvailabilityTypes[1]} borderStyles={{borderStyle: 'dashed solid none none', borderWidth: 1, borderColor: 'rgba(255, 255, 255, .8)'}} coordinates={{quarterIndex: coordinates.quarterIndex + 1, day: coordinates.day}}/>
+        <AVLAtomicTime availabilityType={hourAvailabilityTypes[2]} borderStyles={{borderStyle: 'solid solid none none', borderWidth: 1, borderColor: 'white', borderTopColor: 'rgba(255, 255, 255, .5)'}} coordinates={{quarterIndex: coordinates.quarterIndex + 2, day: coordinates.day}}/>
+        <AVLAtomicTime availabilityType={hourAvailabilityTypes[3]} borderStyles={{borderStyle: 'dashed solid none none', borderWidth: 1, borderColor: 'rgba(255, 255, 255, .8)'}} coordinates={{quarterIndex: coordinates.quarterIndex + 3, day: coordinates.day}}/>
       </Box>
     </Stack>
   )
@@ -55,7 +56,7 @@ export const AvlTimeline = ({ numberOfHours, numberOfDays, availabilityTypeArray
               <Stack key={i}>
                 {Array.from(Array(numberOfHours)).map((_, j) => (
                   <Box key={j}>
-                    <AVLHour hourAvailabilityTypes={stateTable[i][j]}/>
+                    <AVLHour hourAvailabilityTypes={stateTable[i][j]} coordinates={{day: i, quarterIndex: j * 4}}/>
                   </Box>
                 ))}
               </Stack>

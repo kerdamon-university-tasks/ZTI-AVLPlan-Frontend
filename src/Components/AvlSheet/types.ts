@@ -25,3 +25,14 @@ export type TimelineState = {
   firstSelection: AvlTimelineCoordinates;
   secondSelection: AvlTimelineCoordinates;
 }
+
+export type AVLAtomicTimeProps = {
+  availabilityType: number, 
+  borderStyles: {
+    borderStyle: string, 
+    borderWidth: number, 
+    borderColor?:string, 
+    borderTopColor?:string
+  }, 
+  coordinates:AvlTimelineCoordinates
+}
