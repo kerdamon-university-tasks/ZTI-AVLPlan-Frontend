@@ -83,6 +83,7 @@ export const AvlTimeline = ({ numberOfHours, numberOfDays, avlSpans, hourFrom }:
         },
         availabilityType: 1
       };
+      avlSpans.push(newAvlSpan);
       setTimelineState({
         isSelecting: false, 
         firstSelection: {day: 0, quarterIndex: 0}, 
