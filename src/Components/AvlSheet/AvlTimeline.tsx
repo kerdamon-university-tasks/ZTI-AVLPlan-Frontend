@@ -56,8 +56,11 @@ const crateAvailabilityTypeArrayFromAvlSpans = (numberOfDays:number, numberOfHou
   return availabilityTypeArray;
 }
 
-export const AvlTimeline = ({ numberOfHours, numberOfDays, avlSpans, hourFrom }: AvlTimelineProps) => {
-  const availabilityTypeArray = crateAvailabilityTypeArrayFromAvlSpans(numberOfDays, numberOfHours, hourFrom, avlSpans);
+export const AvlTimeline = ({ dateTimeFrom, dateTimeTo, avlSpans }: AvlTimelineProps) => {
+  const numberOfHours = dateTimeTo.getHours() - dateTimeFrom.getHours();
+  const numberOfDays = dateTimeTo.getDate() - dateTimeFrom.getDate();
+
+  const availabilityTypeArray = crateAvailabilityTypeArrayFromAvlSpans(numberOfDays, numberOfHours, dateTimeFrom.getHours(), avlSpans);
 
   const [stateTable, setStateTable] = useState<number[][][]>(availabilityTypeArray); //2x2 table of hours, each hours has 4 quarters. Number represent availability type, that is color
 

@@ -15,10 +15,9 @@ export type AvlSheetProps = {
 }
 
 export type AvlTimelineProps = {
-  numberOfHours: number;
-  numberOfDays: number;
+  dateTimeFrom: Date;
+  dateTimeTo: Date;
   avlSpans: AvlSpan[];
-  hourFrom: number;
 }
 
 export type TimelineState = {
@@ -40,4 +39,11 @@ export type AVLAtomicTimeProps = {
 
 export type TimelineClickFunc = {
   (coordinates: AvlTimelineCoordinates): void
+}
+
+export type TimelineData = {
+  dateTimeFrom: Date;
+  dateTimeTo: Date;
+  user: string;
+  avlSpans: AvlSpan[];
 }
