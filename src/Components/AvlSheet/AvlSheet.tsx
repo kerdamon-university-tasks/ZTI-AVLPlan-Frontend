@@ -42,19 +42,19 @@ const DayRow = ({dayFrom, numberOfDays}: {dayFrom: number, numberOfDays: number}
   )
 }
 
-const AvlSheet = ({ hourFrom, hourTo, dateFrom, dateTo, avlSpans }: AvlSheetProps) => {
+const AvlSheet = ({ dateTimeFrom, dateTimeTo, avlSpans }: AvlSheetProps) => {
   
-  const numberOfHours = hourTo - hourFrom;
-  const numberOfDays = dateTo - dateFrom;
+  const numberOfHours = dateTimeTo.getHours() - dateTimeFrom.getHours();
+  const numberOfDays = dateTimeTo.getDate() - dateTimeFrom.getDate() + 1;
 
   return (
     <Stack direction='row' spacing={1.5} justifyContent='center' alignItems='flex-end'>
-      <HourColumn hourFrom={hourFrom} numberOfHours={numberOfHours}/>
+      <HourColumn hourFrom={dateTimeFrom.getHours()} numberOfHours={numberOfHours}/>
       <Stack>
         <Box mb={1}>
-          <DayRow dayFrom={dateFrom} numberOfDays={numberOfDays}/>
+          <DayRow dayFrom={dateTimeFrom.getDate()} numberOfDays={numberOfDays}/>
         </Box>
-          <AvlTimeline numberOfHours={numberOfHours} numberOfDays={numberOfDays} avlSpans={avlSpans} hourFrom={hourFrom}/>
+          <AvlTimeline avlSpans={avlSpans} dateTimeFrom={dateTimeFrom} dateTimeTo={dateTimeTo}/>
           <Box height={rowHeight/2}/> {/* compensation to align with hours properly */}
       </Stack>
     </Stack>

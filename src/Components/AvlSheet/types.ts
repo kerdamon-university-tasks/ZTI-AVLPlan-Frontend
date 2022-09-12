@@ -7,10 +7,8 @@ export type AVLRowColumnProps = {
 }
 
 export type AvlSheetProps = {
-  hourFrom: number;
-  hourTo: number;
-  dateFrom: number;
-  dateTo: number;
+  dateTimeFrom: Date;
+  dateTimeTo: Date;
   avlSpans: AvlSpan[];
 }
 

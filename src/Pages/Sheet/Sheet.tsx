@@ -18,7 +18,7 @@ const Sheet = () => {
             isError ? (
               <Typography>Error</Typography>
             ) : (
-              <AvlSheet hourFrom={timeline.dateTimeFrom.getHours()} hourTo={timeline.dateTimeTo.getHours()} dateFrom={timeline.dateTimeFrom.getDate()} dateTo={timeline.dateTimeTo.getDate()} avlSpans={timeline.avlspans}/>
+              <AvlSheet dateTimeFrom={timeline.dateTimeFrom} dateTimeTo={timeline.dateTimeTo} avlSpans={timeline.avlspans}/>
             )
           )
         }

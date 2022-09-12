@@ -58,7 +58,7 @@ const crateAvailabilityTypeArrayFromAvlSpans = (numberOfDays:number, numberOfHou
 
 export const AvlTimeline = ({ dateTimeFrom, dateTimeTo, avlSpans }: AvlTimelineProps) => {
   const numberOfHours = dateTimeTo.getHours() - dateTimeFrom.getHours();
-  const numberOfDays = dateTimeTo.getDate() - dateTimeFrom.getDate();
+  const numberOfDays = dateTimeTo.getDate() - dateTimeFrom.getDate() + 1;
 
   const availabilityTypeArray = crateAvailabilityTypeArrayFromAvlSpans(numberOfDays, numberOfHours, dateTimeFrom.getHours(), avlSpans);
 
