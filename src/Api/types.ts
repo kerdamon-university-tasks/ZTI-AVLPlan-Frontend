@@ -6,7 +6,7 @@ export type TimelineData = {
 }
 
 export type SpreadSheetData = {
-  avlTimelines: TimelineData[];
+  avltimelines: TimelineData[];
 }
 
 export type AvlSpan = {

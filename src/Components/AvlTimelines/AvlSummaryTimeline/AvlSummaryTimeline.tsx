@@ -1,77 +1,46 @@
 import { Box, Stack } from "@mui/material"
-import { AvlSpan, AvlTimelineCoordinates } from "Api/types";
+import { AvlSpan, AvlTimelineCoordinates, TimelineData } from "Api/types";
 import useTimelineDataContext from "Hooks/useTimelineDataContext";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { columnWidth, modifyAvailabilityTypeArray, rowHeight } from "../AvlSheetUtilities";
 import { AVLSummaryAtomicTimeProps } from "../types";
 import { useQuery } from '@tanstack/react-query';
 import { fetchSpreadSheet } from "Api";
+import useEnhancedEffect from "@mui/material/utils/useEnhancedEffect";
 
-export const AvlSummaryTimeline = () => {
-
-  const {data: spreadsheet, isLoading, isError} = useQuery(['spreadsheet'], () => fetchSpreadSheet("631f8fefc63b452ffba80210"));
-
-  console.log(spreadsheet);
-  
-
-  //fetch all timelines -> timelines[]
-
+export const AvlSummaryTimeline = ({avlTimelines}: {avlTimelines: TimelineData[]}) => {
   //craete availabilityTypeArray for teach timeline -> availabilityTypeArray[]
   //add current live state table values passed in props: 
   //{liveStateTable}: {liveStateTable:number[][][]}
   //calculate summaryStateArray -> summaryStateArray, max value
   
+  let numberOfHours = avlTimelines[0].dateTimeTo.getHours() - avlTimelines[0].dateTimeFrom.getHours();
+  let numberOfDays = avlTimelines[0].dateTimeTo.getDate() - avlTimelines[0].dateTimeFrom.getDate() + 1;
+  console.log(`numberOfDays ${numberOfDays}`);
+  console.log(`numberOfHours ${numberOfHours}`);
 
-  // const {data: timeline, isLoading, isError} = useQuery(['timeline'], async () => {
-  //   timelineIds.forEach(timelineId => {
-      
-  //   });
-  //   const timeline = await fetchTimeline(id);
-  //   timelineDataContext.setDateTimeFrom(timeline.dateTimeFrom);
-  //   timelineDataContext.setDateTimeTo(timeline.dateTimeTo);
-  //   timelineDataContext.setUser(timeline.user);
-  //   timelineDataContext.setAvlspans(timeline.avlspans);
-  //   return timeline;
-  // })
+  let availabilityTypeArrays:number[][][][] = [];
+  avlTimelines.forEach(timeline => {
+    availabilityTypeArrays.push(crateAvailabilityTypeArrayFromAvlSpans(numberOfDays, numberOfHours, timeline.avlspans));
+  });
 
+  let cleanSummaryStateArray = crateAvailabilityTypeArrayFromAvlSpans(numberOfDays, numberOfHours, []);
+  availabilityTypeArrays.forEach(availabilityTypeArray => {
+    for(let i = 0; i < numberOfDays; i++){
+      for(let j = 0; j < numberOfHours; j++){
+        for(let q = 0; q < 4; q++){
+          console.log(availabilityTypeArray[i][j][q]);
+          cleanSummaryStateArray[i][j][q] += availabilityTypeArray[i][j][q];
+        }
+      }
+    }    
+  });
+
+  console.log('summary array');
+  console.log(cleanSummaryStateArray);
   
-  const timelineDataContext = useTimelineDataContext();
 
-  const numberOfHours = timelineDataContext.getNumberOfHours();
-  const numberOfDays = timelineDataContext.getNumberOfDays();
-  const timelineData = timelineDataContext.getTimelineData();
-
-  const availabilityTypeArray = crateAvailabilityTypeArrayFromAvlSpans(numberOfDays, numberOfHours, timelineData.avlspans);
-
-  const [stateTable, setStateTable] = useState<number[][][]>(availabilityTypeArray); //2x2 table of hours, each hours has 4 quarters. Number represent availability type, that is color
-
-  // const availabilityTypeArray = crateAvailabilityTypeArrayFromAvlSpans(numberOfDays, numberOfHours, timelineData.avlspans);
-  // const availabilityTypeArray2 = crateAvailabilityTypeArrayFromAvlSpans(numberOfDays, numberOfHours, timelineData.avlspans);
-
-  // const availabilityTypeArrays = [availabilityTypeArray, availabilityTypeArray2];
-
-  // let cleanSummaryStateArray = new Array(numberOfDays);
-  // for (let day = 0; day < numberOfDays; day++) {
-  //   availabilityTypeArray[day] = new Array(numberOfHours);
-  //   for (let hour = 0; hour < numberOfHours; hour++) {
-  //     availabilityTypeArray[day][hour] = new Array(4);
-  //     for (let quarter = 0; quarter < 4; quarter++) {
-  //       availabilityTypeArray[day][hour][quarter] = 0
-  //     }
-  //   }
-  // }
-
-  // availabilityTypeArrays.forEach(availabilityTypeArray => {
-  //   for(let i = 0; i < numberOfDays; i++){
-  //     for(let j = 0; j < numberOfDays; j++){
-  //       for(let q = 0; q < numberOfDays; q++){
-  //         cleanSummaryStateArray[i][j][q] += availabilityTypeArray[i][j][q];
-  //       }
-  //     }
-  //   }    
-  // });
-
-  // const [summaryStateArray, setSummaryStateArray] = useState<number[][][]>(cleanSummaryStateArray); //2x2 table of hours, each hours has 4 quarters. Number represent availability value, that is how many users are available in that time
+  const [summaryStateArray, setSummaryStateArray] = useState<number[][][]>(cleanSummaryStateArray); //2x2 table of hours, each hours has 4 quarters. Number represent availability value, that is how many users are available in that time
 
   return (
     <Box sx={{
@@ -83,7 +52,7 @@ export const AvlSummaryTimeline = () => {
             <Stack key={i}>
               {Array.from(Array(numberOfHours)).map((_, j) => (
                 <Box key={j}> 
-                  <AVLHour hourAvailabilityValues={stateTable[i][j]} coordinates={{day: i, quarterIndex: j * 4}}/>
+                  <AVLHour hourAvailabilityValues={summaryStateArray[i][j]} coordinates={{day: i, quarterIndex: j * 4}}/>
                 </Box>
               ))}
             </Stack>

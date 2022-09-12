@@ -1,6 +1,6 @@
 import { Button, Card, Stack, Typography } from "@mui/material";
 import { useQuery } from '@tanstack/react-query';
-import { fetchTimeline, postTimeline } from "Api";
+import { fetchSpreadSheet, fetchTimeline, postTimeline } from "Api";
 import { useParams } from "react-router-dom";
 import AvlSheet from "Components/AvlSheet";
 import useTimelineDataContext from "Hooks/useTimelineDataContext";
@@ -10,7 +10,7 @@ import AvlSummaryTimeline from "Components/AvlTimelines/AvlSummaryTimeline";
 const Sheet = () => {
   let {id} = useParams();  
   const timelineDataContext = useTimelineDataContext();
-  const {isLoading, isError} = useQuery(['timeline'], async () => {
+  const {data, isLoading, isError} = useQuery(['timeline'], async () => {
     const timeline = await fetchTimeline(id);
     timelineDataContext.setDateTimeFrom(timeline.dateTimeFrom);
     timelineDataContext.setDateTimeTo(timeline.dateTimeTo);
@@ -19,6 +19,8 @@ const Sheet = () => {
     return timeline;
   })
 
+  const {data: spreadsheet, isLoading: isSpreadSheetLoading, isError: isSpreadSheetError} = useQuery(['spreadsheet'], () => fetchSpreadSheet("631f8fefc63b452ffba80210"));
+
   const handleOnClick = () => {
     postTimeline(timelineDataContext.getTimelineData());
   }
@@ -26,24 +28,34 @@ const Sheet = () => {
   return (
     <div style={{margin: 40}}>
       <Card sx={{padding: 5, backgroundColor: "#3E3F59"}}>
-        {
-          isLoading ? (
-            <Typography>Loading</Typography>
-          ) : (
-            isError ? (
-              <Typography>Error</Typography>
+        <Stack>
+          {
+            isLoading ? (
+              <Typography>Loading</Typography>
             ) : (
-              <Stack>
+              isError ? (
+                <Typography>Error</Typography>
+              ) : (
                 <AvlSheet>
                   <AvlEditableTimeline/>
                 </AvlSheet>
-                <AvlSheet>
-                  <AvlSummaryTimeline/>
-                </AvlSheet>
-              </Stack>
+              )
             )
-          )
-        }
+          }
+          {
+            isSpreadSheetLoading ? (
+              <Typography>Loading spreadsheet</Typography>
+            ) : (
+              isSpreadSheetError ? (
+                <Typography>Error spreadsheet</Typography>
+              ) : (
+                <AvlSheet>
+                  <AvlSummaryTimeline avlTimelines={spreadsheet.avltimelines}/>
+                </AvlSheet>
+              )
+            )
+          }
+        </Stack>
       </Card>
       <Card sx={{margin: 5, backgroundColor: "#3E3F59"}}>
         <Typography>Wyślij na serwer</Typography>
