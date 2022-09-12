@@ -1,10 +1,10 @@
 import axios from "./axiosInstance";
 
-import {TTimeline} from './types'
+import {TimelineData} from './types'
 
-export async function fetchTimeline(id:string|undefined): Promise<TTimeline> {
+export async function fetchTimeline(id:string|undefined): Promise<TimelineData> {
   try{
-    const response = await axios.get<TTimeline>('/avlitem/timeline/' + id);
+    const response = await axios.get<TimelineData>('/avlitem/timeline/' + id);
     let timeline = response.data;
     timeline.dateTimeFrom = new Date(timeline.dateTimeFrom);
     timeline.dateTimeTo = new Date(timeline.dateTimeTo);
@@ -14,7 +14,7 @@ export async function fetchTimeline(id:string|undefined): Promise<TTimeline> {
   }
 }
 
-export async function postTimeline(timelineData: TTimeline): Promise<void> {
+export async function postTimeline(timelineData: TimelineData): Promise<void> {
   try{
     return await axios.post('/avlitem/timeline/', timelineData);
   } catch (error) {
