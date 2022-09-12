@@ -3,19 +3,17 @@ import AvlSheet from "Components/AvlSheet";
 import useTimelineDataContext from "Hooks/useTimelineDataContext";
 
 const NewTimeline = () => {
-
-  const dateTimeFrom = new Date();
-  dateTimeFrom.setDate(1);
-  dateTimeFrom.setHours(1);
-
-  const dateTimeTo = new Date();
-  dateTimeTo.setDate(5);
-  dateTimeTo.setHours(20);
-
+  
   const timelineDataContext = useTimelineDataContext();
-  timelineDataContext.setDateTimeFrom(dateTimeFrom);
-  // timelineDataContext.setDateTimeTo(dateTimeTo);
-  // timelineDataContext.setUser(timeline.user);
+  let dateTimeFrom = timelineDataContext.getTimelineData().dateTimeFrom;
+  let dateTimeTo = timelineDataContext.getTimelineData().dateTimeTo;
+  dateTimeFrom.setDate(5);
+  dateTimeFrom.setHours(5);
+  dateTimeTo.setDate(13);
+  dateTimeTo.setHours(13);
+  
+  timelineDataContext.setDateTimeTo(dateTimeTo);
+
 
   return (
     <div style={{margin: 40}}>
