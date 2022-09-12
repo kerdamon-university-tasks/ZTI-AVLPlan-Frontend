@@ -1,6 +1,6 @@
 import axios from "./axiosInstance";
 
-import {TimelineData} from './types'
+import {SpreadSheetData, TimelineData} from './types'
 
 export async function fetchTimeline(id:string|undefined): Promise<TimelineData> {
   try{
@@ -11,6 +11,16 @@ export async function fetchTimeline(id:string|undefined): Promise<TimelineData> 
     return timeline;
   } catch (error) {
     throw new Error('Failed to fetch timelines');
+  }
+}
+
+export async function fetchSpreadSheet(id:string|undefined): Promise<SpreadSheetData> {
+  try{
+    const response = await axios.get<SpreadSheetData>('/avlitem/spreadsheet/' + id);
+    let spreadsheet = response.data;
+    return spreadsheet;
+  } catch (error) {
+    throw new Error('Failed to fetch spreadsheets');
   }
 }
 

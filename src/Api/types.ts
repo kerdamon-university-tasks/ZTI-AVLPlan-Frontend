@@ -5,6 +5,10 @@ export type TimelineData = {
   avlspans: AvlSpan[];
 }
 
+export type SpreadSheetData = {
+  avlTimelines: TimelineData[];
+}
+
 export type AvlSpan = {
   timeFrom: AvlTimelineCoordinates;
   timeTo: AvlTimelineCoordinates;

@@ -4,8 +4,15 @@ import useTimelineDataContext from "Hooks/useTimelineDataContext";
 import { useState } from "react";
 import { columnWidth, modifyAvailabilityTypeArray, rowHeight } from "../AvlSheetUtilities";
 import { AVLSummaryAtomicTimeProps } from "../types";
+import { useQuery } from '@tanstack/react-query';
+import { fetchSpreadSheet } from "Api";
 
 export const AvlSummaryTimeline = () => {
+
+  const {data: spreadsheet, isLoading, isError} = useQuery(['spreadsheet'], () => fetchSpreadSheet("631f8fefc63b452ffba80210"));
+
+  console.log(spreadsheet);
+  
 
   //fetch all timelines -> timelines[]
 
