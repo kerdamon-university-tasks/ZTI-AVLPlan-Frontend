@@ -8,6 +8,7 @@ import Footer from 'Components/Footer';
 import { useTheme } from '@mui/material/styles';
 import Sheet from 'Pages/Sheet';
 import NewTimeline from 'Pages/NewTimeline';
+import TimelineDataProvider from 'ContextProviders/TimelineDataProvider';
 
 function App() {
   const theme = useTheme();
@@ -15,16 +16,24 @@ function App() {
     <Stack sx={{minHeight: '100vh'}}>
       <Navbar />
       <Stack alignItems='baseline' justifyContent='center' direction='row' sx={{ flex: 1, backgroundColor: theme.palette.primary.dark }}>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/timeline/:id" element={<Sheet />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/new-timeline/" element={<NewTimeline />} />
-        </Routes>
+        <Pages/>
       </Stack>
       <Footer />
     </Stack>
   );
+}
+
+const Pages = () => {
+  return(
+    <TimelineDataProvider>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/timeline/:id" element={<Sheet />} />
+        <Route path="/new-timeline/" element={<NewTimeline />} />
+      </Routes>
+    </TimelineDataProvider>
+  )
 }
 
 export default App;

@@ -1,26 +1,27 @@
 import { Card, Typography } from "@mui/material";
 import AvlSheet from "Components/AvlSheet";
+import useTimelineDataContext from "Hooks/useTimelineDataContext";
 
 const NewTimeline = () => {
 
   const dateTimeFrom = new Date();
   dateTimeFrom.setDate(1);
-  dateTimeFrom.setHours(10);
+  dateTimeFrom.setHours(1);
 
   const dateTimeTo = new Date();
   dateTimeTo.setDate(5);
   dateTimeTo.setHours(20);
 
-  console.log(dateTimeFrom);
-  console.log(dateTimeTo);
-  
-  
+  const timelineDataContext = useTimelineDataContext();
+  timelineDataContext.setDateTimeFrom(dateTimeFrom);
+  // timelineDataContext.setDateTimeTo(dateTimeTo);
+  // timelineDataContext.setUser(timeline.user);
 
   return (
     <div style={{margin: 40}}>
       <Card sx={{padding: 5, backgroundColor: "#3E3F59"}}>
         {
-          <AvlSheet dateTimeFrom={dateTimeFrom} dateTimeTo={dateTimeTo} avlSpans={[]}/>
+          <AvlSheet/>
         }
       </Card>
     </div>

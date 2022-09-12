@@ -3,10 +3,19 @@ import { useQuery } from '@tanstack/react-query';
 import { fetchTimeline } from "Api";
 import { useParams } from "react-router-dom";
 import AvlSheet from "Components/AvlSheet";
+import useTimelineDataContext from "Hooks/useTimelineDataContext";
 
 const Sheet = () => {
   let {id} = useParams();  
-  const {data: timeline, isLoading, isError} = useQuery(['timeline'], () => fetchTimeline(id)) // dodać id do zapytania
+  const timelineDataContext = useTimelineDataContext();
+  const {data: timeline, isLoading, isError} = useQuery(['timeline'], async () => {
+    const timeline = await fetchTimeline(id);
+    timelineDataContext.setDateTimeFrom(timeline.dateTimeFrom);
+    timelineDataContext.setDateTimeTo(timeline.dateTimeTo);
+    timelineDataContext.setUser(timeline.user);
+    timelineDataContext.setAvlSpans(timeline.avlspans);
+    return timeline;
+  })
 
   return (
     <div style={{margin: 40}}>
@@ -18,7 +27,7 @@ const Sheet = () => {
             isError ? (
               <Typography>Error</Typography>
             ) : (
-              <AvlSheet dateTimeFrom={timeline.dateTimeFrom} dateTimeTo={timeline.dateTimeTo} avlSpans={timeline.avlspans}/>
+              <AvlSheet/>
             )
           )
         }

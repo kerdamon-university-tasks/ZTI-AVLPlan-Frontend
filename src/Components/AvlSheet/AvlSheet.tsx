@@ -1,8 +1,7 @@
 import { Box, Stack, Typography } from "@mui/material";
-import { AvlSheetProps } from "./types";
 import { AvlTimeline } from './AvlTimeline';
 import { columnWidth, modifyAvailabilityTypeArray, rowHeight } from "./AvlSheetUtilities";
-import { AvlSpan } from "Api/types";
+import useTimelineDataContext from "Hooks/useTimelineDataContext";
 
 const HourColumnElement = ({hourFrom, offset}: {hourFrom: number, offset: number}) => {
   return(
@@ -42,19 +41,21 @@ const DayRow = ({dayFrom, numberOfDays}: {dayFrom: number, numberOfDays: number}
   )
 }
 
-const AvlSheet = ({ dateTimeFrom, dateTimeTo, avlSpans }: AvlSheetProps) => {
-  
-  const numberOfHours = dateTimeTo.getHours() - dateTimeFrom.getHours();
-  const numberOfDays = dateTimeTo.getDate() - dateTimeFrom.getDate() + 1;
+const AvlSheet = () => {
+  const timelineDataContext = useTimelineDataContext();
+
+  const numberOfHours = timelineDataContext.getNumberOfHours();
+  const numberOfDays = timelineDataContext.getNumberOfDays();
+  const timelineData = timelineDataContext.getTimelineData();
 
   return (
     <Stack direction='row' spacing={1.5} justifyContent='center' alignItems='flex-end'>
-      <HourColumn hourFrom={dateTimeFrom.getHours()} numberOfHours={numberOfHours}/>
+      <HourColumn hourFrom={timelineData.dateTimeFrom.getHours()} numberOfHours={numberOfHours}/>
       <Stack>
         <Box mb={1}>
-          <DayRow dayFrom={dateTimeFrom.getDate()} numberOfDays={numberOfDays}/>
+          <DayRow dayFrom={timelineData.dateTimeFrom.getDate()} numberOfDays={numberOfDays}/>
         </Box>
-          <AvlTimeline avlSpans={avlSpans} dateTimeFrom={dateTimeFrom} dateTimeTo={dateTimeTo}/>
+          <AvlTimeline avlSpans={timelineData.avlSpans} dateTimeFrom={timelineData.dateTimeFrom} dateTimeTo={timelineData.dateTimeTo}/>
           <Box height={rowHeight/2}/> {/* compensation to align with hours properly */}
       </Stack>
     </Stack>
