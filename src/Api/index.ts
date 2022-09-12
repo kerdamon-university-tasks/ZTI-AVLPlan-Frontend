@@ -13,3 +13,11 @@ export async function fetchTimeline(id:string|undefined): Promise<TTimeline> {
     throw new Error('Failed to fetch timelines');
   }
 }
+
+export async function postTimeline(timelineData: TTimeline): Promise<void> {
+  try{
+    return await axios.post('/avlitem/timeline/', timelineData);
+  } catch (error) {
+    throw new Error('Failed to post timelines');
+  }
+}

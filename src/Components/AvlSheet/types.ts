@@ -39,9 +39,9 @@ export type TimelineClickFunc = {
   (coordinates: AvlTimelineCoordinates): void
 }
 
-export type TimelineData = {
-  user: string;
-  dateTimeFrom: Date;
-  dateTimeTo: Date;
-  avlSpans: AvlSpan[];
-}
+// export type TimelineData = {
+//   user: string;
+//   dateTimeFrom: Date;
+//   dateTimeTo: Date;
+//   avlSpans: AvlSpan[];
+// }

@@ -1,5 +1,5 @@
 import { AvlSpan } from "Api/types";
-import { AvlSheetProps, TimelineData } from "Components/AvlSheet/types";
+import { AvlSheetProps } from "Components/AvlSheet/types";
 import React, { useState } from "react";
 import { TimelineDataValues } from "./types";
 
@@ -9,12 +9,12 @@ const TimelineDataProvider = ({children}: {children?: React.ReactNode}) => {
   const [dateTimeFrom, setDateTimeFrom] = useState<Date>(new Date());
   const [dateTimeTo, setDateTimeTo] = useState<Date>(new Date());
   const [user, setUser] = useState('');
-  const [avlSpans, setAvlSpans] = useState<AvlSpan[]>([]);
+  const [avlspans, setAvlspans] = useState<AvlSpan[]>([]);
 
   const addAvlSpan = (avlSpan:AvlSpan) => {
-    let newAvlSpanArray = [...avlSpans];
+    let newAvlSpanArray = [...avlspans];
     newAvlSpanArray.push(avlSpan);
-    setAvlSpans(newAvlSpanArray);
+    setAvlspans(newAvlSpanArray);
   }
 
   const getTimelineData = () => {
@@ -22,7 +22,7 @@ const TimelineDataProvider = ({children}: {children?: React.ReactNode}) => {
       user,
       dateTimeFrom,
       dateTimeTo,
-      avlSpans,
+      avlspans,
     }
   }
 
@@ -40,7 +40,7 @@ const TimelineDataProvider = ({children}: {children?: React.ReactNode}) => {
     setDateTimeFrom,
     setDateTimeTo,
     setUser,
-    setAvlSpans,
+    setAvlspans,
     getNumberOfHours,
     getNumberOfDays
   }

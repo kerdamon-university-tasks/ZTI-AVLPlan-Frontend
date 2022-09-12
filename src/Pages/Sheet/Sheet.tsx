@@ -1,6 +1,6 @@
-import { Card, Typography } from "@mui/material";
+import { Button, Card, Typography } from "@mui/material";
 import { useQuery } from '@tanstack/react-query';
-import { fetchTimeline } from "Api";
+import { fetchTimeline, postTimeline } from "Api";
 import { useParams } from "react-router-dom";
 import AvlSheet from "Components/AvlSheet";
 import useTimelineDataContext from "Hooks/useTimelineDataContext";
@@ -13,9 +13,17 @@ const Sheet = () => {
     timelineDataContext.setDateTimeFrom(timeline.dateTimeFrom);
     timelineDataContext.setDateTimeTo(timeline.dateTimeTo);
     timelineDataContext.setUser(timeline.user);
-    timelineDataContext.setAvlSpans(timeline.avlspans);
+    // console.log(`tmeline.avlspans`);
+    // console.log(timeline.avlspans);
+    timelineDataContext.setAvlspans(timeline.avlspans);
+    // console.log(`timelineDataContext.getTimelineData().avlSpans`);
+    // console.log(timelineDataContext.getTimelineData().avlSpans);
     return timeline;
   })
+
+  const handleOnClick = () => {
+    postTimeline(timelineDataContext.getTimelineData());
+  }
 
   return (
     <div style={{margin: 40}}>
@@ -31,6 +39,10 @@ const Sheet = () => {
             )
           )
         }
+      </Card>
+      <Card sx={{margin: 5, backgroundColor: "#3E3F59"}}>
+        <Typography>Wyślij na serwer</Typography>
+        <Button onClick={() => handleOnClick()}>Prześlij</Button>
       </Card>
     </div>
     )

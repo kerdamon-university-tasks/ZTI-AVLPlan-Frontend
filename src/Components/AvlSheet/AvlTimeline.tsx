@@ -59,7 +59,7 @@ export const AvlTimeline = () => {
   const numberOfDays = timelineDataContext.getNumberOfDays();
   const timelineData = timelineDataContext.getTimelineData();
 
-  const availabilityTypeArray = crateAvailabilityTypeArrayFromAvlSpans(numberOfDays, numberOfHours, timelineData.dateTimeFrom.getHours(), timelineData.avlSpans);
+  const availabilityTypeArray = crateAvailabilityTypeArrayFromAvlSpans(numberOfDays, numberOfHours, timelineData.dateTimeFrom.getHours(), timelineData.avlspans);
 
   const [stateTable, setStateTable] = useState<number[][][]>(availabilityTypeArray); //2x2 table of hours, each hours has 4 quarters. Number represent availability type, that is color
 
@@ -86,6 +86,10 @@ export const AvlTimeline = () => {
         },
         availabilityType: 1
       };
+
+      // let newAvlSpanArray = [...timelineData.avlspans];
+      // newAvlSpanArray.push(newAvlSpan);
+      // timelineDataContext.setAvlSpans(newAvlSpanArray);
 
       timelineDataContext.addAvlSpan(newAvlSpan);
 
