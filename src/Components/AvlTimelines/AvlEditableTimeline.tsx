@@ -1,12 +1,11 @@
 import { Box, Stack } from "@mui/material"
 import { AvlSpan, AvlTimelineCoordinates } from "Api/types";
 import useTimelineDataContext from "Hooks/useTimelineDataContext";
-import React from "react";
 import { useState } from "react";
 import { columnWidth, modifyAvailabilityTypeArray, rowHeight } from "./AvlSheetUtilities";
 import { AVLAtomicTimeProps, TimelineClickFunc, TimelineState } from "./types";
 
-export const AvlTimeline = () => {
+export const AvlEditableTimeline = () => {
   const timelineDataContext = useTimelineDataContext();
 
   const numberOfHours = timelineDataContext.getNumberOfHours();
@@ -128,4 +127,4 @@ const crateAvailabilityTypeArrayFromAvlSpans = (numberOfDays:number, numberOfHou
   return availabilityTypeArray;
 }
 
-export default AvlTimeline;
+export default AvlEditableTimeline;

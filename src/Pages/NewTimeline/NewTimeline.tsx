@@ -1,7 +1,7 @@
 import { Button, Card, Typography } from "@mui/material";
 import { postTimeline } from "Api";
 import AvlSheet from "Components/AvlSheet";
-import AvlTimeline from "Components/AvlTimeline";
+import AvlTimeline from "Components/AvlTimelines";
 import useTimelineDataContext from "Hooks/useTimelineDataContext";
 
 const NewTimeline = () => {
