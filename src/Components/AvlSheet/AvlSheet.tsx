@@ -55,7 +55,7 @@ const AvlSheet = () => {
         <Box mb={1}>
           <DayRow dayFrom={timelineData.dateTimeFrom.getDate()} numberOfDays={numberOfDays}/>
         </Box>
-          <AvlTimeline avlSpans={timelineData.avlSpans} dateTimeFrom={timelineData.dateTimeFrom} dateTimeTo={timelineData.dateTimeTo}/>
+          <AvlTimeline/>
           <Box height={rowHeight/2}/> {/* compensation to align with hours properly */}
       </Stack>
     </Stack>

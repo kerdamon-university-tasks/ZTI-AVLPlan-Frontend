@@ -1,5 +1,6 @@
 import { Box, Stack } from "@mui/material"
 import { AvlSpan, AvlTimelineCoordinates } from "Api/types";
+import useTimelineDataContext from "Hooks/useTimelineDataContext";
 import React from "react";
 import { useState } from "react";
 import { columnWidth, modifyAvailabilityTypeArray, rowHeight } from "./AvlSheetUtilities";
@@ -56,11 +57,14 @@ const crateAvailabilityTypeArrayFromAvlSpans = (numberOfDays:number, numberOfHou
   return availabilityTypeArray;
 }
 
-export const AvlTimeline = ({ dateTimeFrom, dateTimeTo, avlSpans }: AvlTimelineProps) => {
-  const numberOfHours = dateTimeTo.getHours() - dateTimeFrom.getHours();
-  const numberOfDays = dateTimeTo.getDate() - dateTimeFrom.getDate() + 1;
+export const AvlTimeline = () => {
+  const timelineDataContext = useTimelineDataContext();
 
-  const availabilityTypeArray = crateAvailabilityTypeArrayFromAvlSpans(numberOfDays, numberOfHours, dateTimeFrom.getHours(), avlSpans);
+  const numberOfHours = timelineDataContext.getNumberOfHours();
+  const numberOfDays = timelineDataContext.getNumberOfDays();
+  const timelineData = timelineDataContext.getTimelineData();
+
+  const availabilityTypeArray = crateAvailabilityTypeArrayFromAvlSpans(numberOfDays, numberOfHours, timelineData.dateTimeFrom.getHours(), timelineData.avlSpans);
 
   const [stateTable, setStateTable] = useState<number[][][]>(availabilityTypeArray); //2x2 table of hours, each hours has 4 quarters. Number represent availability type, that is color
 
@@ -75,6 +79,7 @@ export const AvlTimeline = ({ dateTimeFrom, dateTimeTo, avlSpans }: AvlTimelineP
     let newStateTable = [...stateTable];
 
     if(timelineState.isSelecting){
+      
       let newAvlSpan = {
         timeFrom: {
           quarterIndex: timelineState.firstSelection.quarterIndex,
@@ -86,14 +91,18 @@ export const AvlTimeline = ({ dateTimeFrom, dateTimeTo, avlSpans }: AvlTimelineP
         },
         availabilityType: 1
       };
-      avlSpans.push(newAvlSpan);
+
+      timelineDataContext.addAvlSpan(newAvlSpan);
+
       setTimelineState({
         isSelecting: false, 
         firstSelection: {day: 0, quarterIndex: 0}, 
       });
+
       newStateTable = [...stateTable];
       modifyAvailabilityTypeArray(newStateTable, newAvlSpan, numberOfHours);
       setStateTable(newStateTable);
+
     } else {
       setTimelineState({
           isSelecting: true, 

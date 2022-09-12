@@ -14,7 +14,6 @@ const NewTimeline = () => {
   
   timelineDataContext.setDateTimeTo(dateTimeTo);
 
-
   return (
     <div style={{margin: 40}}>
       <Card sx={{padding: 5, backgroundColor: "#3E3F59"}}>
