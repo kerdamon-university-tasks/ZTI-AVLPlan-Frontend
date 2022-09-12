@@ -7,6 +7,8 @@ import { AVLSummaryAtomicTimeProps } from "../types";
 import { useQuery } from '@tanstack/react-query';
 import { fetchSpreadSheet } from "Api";
 import useEnhancedEffect from "@mui/material/utils/useEnhancedEffect";
+import { theme } from "Theme";
+import { alpha } from "@mui/material";
 
 export const AvlSummaryTimeline = ({avlTimelines}: {avlTimelines: TimelineData[]}) => {
   //craete availabilityTypeArray for teach timeline -> availabilityTypeArray[]
@@ -16,29 +18,26 @@ export const AvlSummaryTimeline = ({avlTimelines}: {avlTimelines: TimelineData[]
   
   let numberOfHours = avlTimelines[0].dateTimeTo.getHours() - avlTimelines[0].dateTimeFrom.getHours();
   let numberOfDays = avlTimelines[0].dateTimeTo.getDate() - avlTimelines[0].dateTimeFrom.getDate() + 1;
-  console.log(`numberOfDays ${numberOfDays}`);
-  console.log(`numberOfHours ${numberOfHours}`);
 
   let availabilityTypeArrays:number[][][][] = [];
   avlTimelines.forEach(timeline => {
     availabilityTypeArrays.push(crateAvailabilityTypeArrayFromAvlSpans(numberOfDays, numberOfHours, timeline.avlspans));
   });
 
+  let maxValue = 0;
   let cleanSummaryStateArray = crateAvailabilityTypeArrayFromAvlSpans(numberOfDays, numberOfHours, []);
   availabilityTypeArrays.forEach(availabilityTypeArray => {
     for(let i = 0; i < numberOfDays; i++){
       for(let j = 0; j < numberOfHours; j++){
         for(let q = 0; q < 4; q++){
-          console.log(availabilityTypeArray[i][j][q]);
           cleanSummaryStateArray[i][j][q] += availabilityTypeArray[i][j][q];
+          if(cleanSummaryStateArray[i][j][q] > maxValue){
+            maxValue = cleanSummaryStateArray[i][j][q];
+          }
         }
       }
     }    
   });
-
-  console.log('summary array');
-  console.log(cleanSummaryStateArray);
-  
 
   const [summaryStateArray, setSummaryStateArray] = useState<number[][][]>(cleanSummaryStateArray); //2x2 table of hours, each hours has 4 quarters. Number represent availability value, that is how many users are available in that time
 
@@ -52,7 +51,7 @@ export const AvlSummaryTimeline = ({avlTimelines}: {avlTimelines: TimelineData[]
             <Stack key={i}>
               {Array.from(Array(numberOfHours)).map((_, j) => (
                 <Box key={j}> 
-                  <AVLHour hourAvailabilityValues={summaryStateArray[i][j]} coordinates={{day: i, quarterIndex: j * 4}}/>
+                  <AVLHour hourAvailabilityValues={summaryStateArray[i][j]} maxValue={maxValue} coordinates={{day: i, quarterIndex: j * 4}}/>
                 </Box>
               ))}
             </Stack>
@@ -62,26 +61,26 @@ export const AvlSummaryTimeline = ({avlTimelines}: {avlTimelines: TimelineData[]
   )
 }
 
-const AVLAtomicTime = ({availabilityValue, borderStyles, coordinates}: AVLSummaryAtomicTimeProps) => {
+const AVLAtomicTime = ({availabilityValue, borderStyles, maxValue, coordinates}: AVLSummaryAtomicTimeProps) => {
   return(
     <Box height={rowHeight/4} sx={{
-      backgroundColor: availabilityValue === 0 ? 'notAvailable.main' : 'available.main',
+      backgroundColor: alpha(theme.palette.notAvailable.main, 1 - availabilityValue/maxValue),
       '&:hover': {
         backgroundColor: 'primary.light',
       },
       borderStyle: borderStyles.borderStyle, borderWidth: borderStyles.borderWidth, borderColor: borderStyles.borderColor, borderTopColor: borderStyles.borderTopColor,
-    }}>{availabilityValue}</Box>
+    }}/>
   )
 }
 
-const AVLHour = ({hourAvailabilityValues, coordinates}: {hourAvailabilityValues: number[], coordinates:AvlTimelineCoordinates}) => {
+const AVLHour = ({hourAvailabilityValues, maxValue, coordinates}: {hourAvailabilityValues: number[], maxValue: number, coordinates:AvlTimelineCoordinates}) => {
   return(
     <Stack width={columnWidth}>
       <Box>
-        <AVLAtomicTime availabilityValue={hourAvailabilityValues[0]} borderStyles={{borderStyle: 'solid solid none none', borderWidth: 1, borderColor: 'white'}} coordinates={{quarterIndex: coordinates.quarterIndex, day: coordinates.day}}/>
-        <AVLAtomicTime availabilityValue={hourAvailabilityValues[1]} borderStyles={{borderStyle: 'dashed solid none none', borderWidth: 1, borderColor: 'rgba(255, 255, 255, .8)'}} coordinates={{quarterIndex: coordinates.quarterIndex + 1, day: coordinates.day}}/>
-        <AVLAtomicTime availabilityValue={hourAvailabilityValues[2]} borderStyles={{borderStyle: 'solid solid none none', borderWidth: 1, borderColor: 'white', borderTopColor: 'rgba(255, 255, 255, .5)'}} coordinates={{quarterIndex: coordinates.quarterIndex + 2, day: coordinates.day}}/>
-        <AVLAtomicTime availabilityValue={hourAvailabilityValues[3]} borderStyles={{borderStyle: 'dashed solid none none', borderWidth: 1, borderColor: 'rgba(255, 255, 255, .8)'}} coordinates={{quarterIndex: coordinates.quarterIndex + 3, day: coordinates.day}}/>
+        <AVLAtomicTime availabilityValue={hourAvailabilityValues[0]} maxValue={maxValue} borderStyles={{borderStyle: 'solid solid none none', borderWidth: 1, borderColor: 'white'}} coordinates={{quarterIndex: coordinates.quarterIndex, day: coordinates.day}}/>
+        <AVLAtomicTime availabilityValue={hourAvailabilityValues[1]} maxValue={maxValue} borderStyles={{borderStyle: 'dashed solid none none', borderWidth: 1, borderColor: 'rgba(255, 255, 255, .8)'}} coordinates={{quarterIndex: coordinates.quarterIndex + 1, day: coordinates.day}}/>
+        <AVLAtomicTime availabilityValue={hourAvailabilityValues[2]} maxValue={maxValue} borderStyles={{borderStyle: 'solid solid none none', borderWidth: 1, borderColor: 'white', borderTopColor: 'rgba(255, 255, 255, .5)'}} coordinates={{quarterIndex: coordinates.quarterIndex + 2, day: coordinates.day}}/>
+        <AVLAtomicTime availabilityValue={hourAvailabilityValues[3]} maxValue={maxValue} borderStyles={{borderStyle: 'dashed solid none none', borderWidth: 1, borderColor: 'rgba(255, 255, 255, .8)'}} coordinates={{quarterIndex: coordinates.quarterIndex + 3, day: coordinates.day}}/>
       </Box>
     </Stack>
   )

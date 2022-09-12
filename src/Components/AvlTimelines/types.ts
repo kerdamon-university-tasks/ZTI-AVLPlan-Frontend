@@ -24,7 +24,8 @@ export type AVLSummaryAtomicTimeProps = {
     borderWidth: number, 
     borderColor?:string, 
     borderTopColor?:string
-  }, 
+  },
+  maxValue: number,
   coordinates:AvlTimelineCoordinates
 }
 
