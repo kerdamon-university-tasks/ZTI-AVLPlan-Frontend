@@ -10,7 +10,7 @@ import AvlSummaryTimeline from "Components/AvlTimelines/AvlSummaryTimeline";
 const Sheet = () => {
   let {id} = useParams();  
   const timelineDataContext = useTimelineDataContext();
-  const {data, isLoading, isError} = useQuery(['timeline'], async () => {
+  const {isLoading, isError} = useQuery(['timeline'], async () => {
     const timeline = await fetchTimeline(id);
     timelineDataContext.setDateTimeFrom(timeline.dateTimeFrom);
     timelineDataContext.setDateTimeTo(timeline.dateTimeTo);

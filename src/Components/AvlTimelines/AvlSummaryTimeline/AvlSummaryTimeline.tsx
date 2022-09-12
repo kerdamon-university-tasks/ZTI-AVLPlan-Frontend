@@ -1,12 +1,8 @@
 import { Box, Stack } from "@mui/material"
 import { AvlSpan, AvlTimelineCoordinates, TimelineData } from "Api/types";
-import useTimelineDataContext from "Hooks/useTimelineDataContext";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { columnWidth, modifyAvailabilityTypeArray, rowHeight } from "../AvlSheetUtilities";
 import { AVLSummaryAtomicTimeProps } from "../types";
-import { useQuery } from '@tanstack/react-query';
-import { fetchSpreadSheet } from "Api";
-import useEnhancedEffect from "@mui/material/utils/useEnhancedEffect";
 import { theme } from "Theme";
 import { alpha } from "@mui/material";
 
@@ -39,7 +35,7 @@ export const AvlSummaryTimeline = ({avlTimelines}: {avlTimelines: TimelineData[]
     }    
   });
 
-  const [summaryStateArray, setSummaryStateArray] = useState<number[][][]>(cleanSummaryStateArray); //2x2 table of hours, each hours has 4 quarters. Number represent availability value, that is how many users are available in that time
+  const [summaryStateArray] = useState<number[][][]>(cleanSummaryStateArray); //2x2 table of hours, each hours has 4 quarters. Number represent availability value, that is how many users are available in that time
 
   return (
     <Box sx={{
