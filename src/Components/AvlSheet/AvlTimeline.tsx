@@ -33,11 +33,6 @@ const AVLHour = ({hourAvailabilityTypes, coordinates, onTimelineClick}: {hourAva
   )
 }
 
-const TimelineContext = React.createContext({
-  isSelecting: false, 
-  firstSelection: {day: 0, quarterIndex: 0}, 
-});
-
 const crateAvailabilityTypeArrayFromAvlSpans = (numberOfDays:number, numberOfHours:number, hourFrom:number, avlSpans: AvlSpan[]) => {
   const availabilityTypeArray = new Array(numberOfDays);
   for (let day = 0; day < numberOfDays; day++) {
@@ -79,7 +74,7 @@ export const AvlTimeline = () => {
     let newStateTable = [...stateTable];
 
     if(timelineState.isSelecting){
-      
+
       let newAvlSpan = {
         timeFrom: {
           quarterIndex: timelineState.firstSelection.quarterIndex,
@@ -114,23 +109,21 @@ export const AvlTimeline = () => {
   }
 
   return (
-    <TimelineContext.Provider value={timelineState}>
-      <Box sx={{
-        backgroundColor: 'available.main',
-        borderStyle: 'none none solid solid', borderWidth: 1, borderColor: 'white',
-      }}>
-        <Stack direction='row'>
-          {Array.from(Array(numberOfDays)).map((_, i) => (
-              <Stack key={i}>
-                {Array.from(Array(numberOfHours)).map((_, j) => (
-                  <Box key={j}> 
-                    <AVLHour hourAvailabilityTypes={stateTable[i][j]} coordinates={{day: i, quarterIndex: j * 4}}  onTimelineClick={onTimelineClick}/>
-                  </Box>
-                ))}
-              </Stack>
-          ))}
-        </Stack>
-      </Box>
-    </TimelineContext.Provider>
+    <Box sx={{
+      backgroundColor: 'available.main',
+      borderStyle: 'none none solid solid', borderWidth: 1, borderColor: 'white',
+    }}>
+      <Stack direction='row'>
+        {Array.from(Array(numberOfDays)).map((_, i) => (
+            <Stack key={i}>
+              {Array.from(Array(numberOfHours)).map((_, j) => (
+                <Box key={j}> 
+                  <AVLHour hourAvailabilityTypes={stateTable[i][j]} coordinates={{day: i, quarterIndex: j * 4}}  onTimelineClick={onTimelineClick}/>
+                </Box>
+              ))}
+            </Stack>
+        ))}
+      </Stack>
+    </Box>
   )
 }
