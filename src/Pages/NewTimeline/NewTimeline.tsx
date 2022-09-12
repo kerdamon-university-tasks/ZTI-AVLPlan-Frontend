@@ -1,14 +1,8 @@
-import { Button, Card, Stack, TextField, Typography } from "@mui/material";
+import { Button, Card, Typography } from "@mui/material";
 import { postTimeline } from "Api";
 import AvlSheet from "Components/AvlSheet";
+import AvlTimeline from "Components/AvlTimeline";
 import useTimelineDataContext from "Hooks/useTimelineDataContext";
-
-const defaultValues = {
-  email: '',
-  password: '',
-};
-
-type NewTimelineFormValues = typeof defaultValues;
 
 const NewTimeline = () => {
   
@@ -33,7 +27,9 @@ const NewTimeline = () => {
     <div style={{margin: 40}}>
       <Card sx={{padding: 5, backgroundColor: "#3E3F59"}}>
         {
-          <AvlSheet/>
+          <AvlSheet>
+            <AvlTimeline/>
+          </AvlSheet>
         }
       </Card>
       <Card sx={{margin: 5, backgroundColor: "#3E3F59"}}>

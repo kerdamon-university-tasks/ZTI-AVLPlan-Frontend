@@ -1,5 +1,4 @@
 import { AvlSpan } from "Api/types";
-import { AvlSheetProps } from "Components/AvlSheet/types";
 import React, { useState } from "react";
 import { TimelineDataValues } from "./types";
 

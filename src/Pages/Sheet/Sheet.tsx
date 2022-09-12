@@ -4,20 +4,17 @@ import { fetchTimeline, postTimeline } from "Api";
 import { useParams } from "react-router-dom";
 import AvlSheet from "Components/AvlSheet";
 import useTimelineDataContext from "Hooks/useTimelineDataContext";
+import AvlTimeline from "Components/AvlTimeline";
 
 const Sheet = () => {
   let {id} = useParams();  
   const timelineDataContext = useTimelineDataContext();
-  const {data: timeline, isLoading, isError} = useQuery(['timeline'], async () => {
+  const {isLoading, isError} = useQuery(['timeline'], async () => {
     const timeline = await fetchTimeline(id);
     timelineDataContext.setDateTimeFrom(timeline.dateTimeFrom);
     timelineDataContext.setDateTimeTo(timeline.dateTimeTo);
     timelineDataContext.setUser(timeline.user);
-    // console.log(`tmeline.avlspans`);
-    // console.log(timeline.avlspans);
     timelineDataContext.setAvlspans(timeline.avlspans);
-    // console.log(`timelineDataContext.getTimelineData().avlSpans`);
-    // console.log(timelineDataContext.getTimelineData().avlSpans);
     return timeline;
   })
 
@@ -35,7 +32,9 @@ const Sheet = () => {
             isError ? (
               <Typography>Error</Typography>
             ) : (
-              <AvlSheet/>
+              <AvlSheet>
+                <AvlTimeline/>
+              </AvlSheet>
             )
           )
         }
