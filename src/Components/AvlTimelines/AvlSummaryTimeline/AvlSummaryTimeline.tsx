@@ -36,7 +36,35 @@ export const AvlSummaryTimeline = () => {
 
   const availabilityTypeArray = crateAvailabilityTypeArrayFromAvlSpans(numberOfDays, numberOfHours, timelineData.avlspans);
 
-  const [summaryStateArray, setSummaryStateArray] = useState<number[][][]>(availabilityTypeArray); //2x2 table of hours, each hours has 4 quarters. Number represent availability value, that is how many users are available in that time
+  const [stateTable, setStateTable] = useState<number[][][]>(availabilityTypeArray); //2x2 table of hours, each hours has 4 quarters. Number represent availability type, that is color
+
+  // const availabilityTypeArray = crateAvailabilityTypeArrayFromAvlSpans(numberOfDays, numberOfHours, timelineData.avlspans);
+  // const availabilityTypeArray2 = crateAvailabilityTypeArrayFromAvlSpans(numberOfDays, numberOfHours, timelineData.avlspans);
+
+  // const availabilityTypeArrays = [availabilityTypeArray, availabilityTypeArray2];
+
+  // let cleanSummaryStateArray = new Array(numberOfDays);
+  // for (let day = 0; day < numberOfDays; day++) {
+  //   availabilityTypeArray[day] = new Array(numberOfHours);
+  //   for (let hour = 0; hour < numberOfHours; hour++) {
+  //     availabilityTypeArray[day][hour] = new Array(4);
+  //     for (let quarter = 0; quarter < 4; quarter++) {
+  //       availabilityTypeArray[day][hour][quarter] = 0
+  //     }
+  //   }
+  // }
+
+  // availabilityTypeArrays.forEach(availabilityTypeArray => {
+  //   for(let i = 0; i < numberOfDays; i++){
+  //     for(let j = 0; j < numberOfDays; j++){
+  //       for(let q = 0; q < numberOfDays; q++){
+  //         cleanSummaryStateArray[i][j][q] += availabilityTypeArray[i][j][q];
+  //       }
+  //     }
+  //   }    
+  // });
+
+  // const [summaryStateArray, setSummaryStateArray] = useState<number[][][]>(cleanSummaryStateArray); //2x2 table of hours, each hours has 4 quarters. Number represent availability value, that is how many users are available in that time
 
   return (
     <Box sx={{
@@ -48,7 +76,7 @@ export const AvlSummaryTimeline = () => {
             <Stack key={i}>
               {Array.from(Array(numberOfHours)).map((_, j) => (
                 <Box key={j}> 
-                  <AVLHour hourAvailabilityValues={summaryStateArray[i][j]} coordinates={{day: i, quarterIndex: j * 4}}/>
+                  <AVLHour hourAvailabilityValues={stateTable[i][j]} coordinates={{day: i, quarterIndex: j * 4}}/>
                 </Box>
               ))}
             </Stack>
