@@ -2,8 +2,8 @@ import { Box, Stack } from "@mui/material"
 import { AvlSpan, AvlTimelineCoordinates } from "Api/types";
 import useTimelineDataContext from "Hooks/useTimelineDataContext";
 import { useState } from "react";
-import { columnWidth, modifyAvailabilityTypeArray, rowHeight } from "./AvlSheetUtilities";
-import { AVLAtomicTimeProps, TimelineClickFunc, TimelineState } from "./types";
+import { columnWidth, modifyAvailabilityTypeArray, rowHeight } from "../AvlSheetUtilities";
+import { AVLEditableAtomicTimeProps, TimelineClickFunc, TimelineState } from "../types";
 
 export const AvlEditableTimeline = () => {
   const timelineDataContext = useTimelineDataContext();
@@ -81,7 +81,7 @@ export const AvlEditableTimeline = () => {
   )
 }
 
-const AVLAtomicTime = ({availabilityType, borderStyles, coordinates, onTimelineClick}: AVLAtomicTimeProps) => {
+const AVLAtomicTime = ({availabilityType, borderStyles, coordinates, onTimelineClick}: AVLEditableAtomicTimeProps) => {
   return(
     <Box component='a' onClick={() => onTimelineClick(coordinates)}>
       <Box height={rowHeight/4} sx={{

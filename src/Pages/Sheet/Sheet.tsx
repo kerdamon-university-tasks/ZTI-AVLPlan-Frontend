@@ -1,10 +1,11 @@
-import { Button, Card, Typography } from "@mui/material";
+import { Button, Card, Stack, Typography } from "@mui/material";
 import { useQuery } from '@tanstack/react-query';
 import { fetchTimeline, postTimeline } from "Api";
 import { useParams } from "react-router-dom";
 import AvlSheet from "Components/AvlSheet";
 import useTimelineDataContext from "Hooks/useTimelineDataContext";
-import AvlTimeline from "Components/AvlTimelines";
+import AvlEditableTimeline from "Components/AvlTimelines/AvlEditableTimeline";
+import AvlSummaryTimeline from "Components/AvlTimelines/AvlSummaryTimeline";
 
 const Sheet = () => {
   let {id} = useParams();  
@@ -32,9 +33,14 @@ const Sheet = () => {
             isError ? (
               <Typography>Error</Typography>
             ) : (
-              <AvlSheet>
-                <AvlTimeline/>
-              </AvlSheet>
+              <Stack>
+                <AvlSheet>
+                  <AvlEditableTimeline/>
+                </AvlSheet>
+                <AvlSheet>
+                  <AvlSummaryTimeline/>
+                </AvlSheet>
+              </Stack>
             )
           )
         }

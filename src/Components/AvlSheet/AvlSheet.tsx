@@ -1,5 +1,5 @@
 import { Box, Stack, Typography } from "@mui/material";
-import { columnWidth, rowHeight } from "Components/AvlTimeline/AvlSheetUtilities";
+import { columnWidth, rowHeight } from "Components/AvlTimelines/AvlSheetUtilities";
 import useTimelineDataContext from "Hooks/useTimelineDataContext";
 
 const AvlSheet = ({children}: {children: React.ReactNode}) => {

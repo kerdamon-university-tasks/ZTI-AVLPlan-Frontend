@@ -5,7 +5,7 @@ export type TimelineState = {
   firstSelection: AvlTimelineCoordinates;
 }
 
-export type AVLAtomicTimeProps = {
+export type AVLEditableAtomicTimeProps = {
   availabilityType: number, 
   borderStyles: {
     borderStyle: string, 
@@ -14,8 +14,20 @@ export type AVLAtomicTimeProps = {
     borderTopColor?:string
   }, 
   coordinates:AvlTimelineCoordinates,
-  onTimelineClick?: TimelineClickFunc
+  onTimelineClick: TimelineClickFunc
 }
+
+export type AVLSummaryAtomicTimeProps = {
+  availabilityValue: number, 
+  borderStyles: {
+    borderStyle: string, 
+    borderWidth: number, 
+    borderColor?:string, 
+    borderTopColor?:string
+  }, 
+  coordinates:AvlTimelineCoordinates
+}
+
 
 export type TimelineClickFunc = {
   (coordinates: AvlTimelineCoordinates): void
