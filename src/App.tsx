@@ -7,8 +7,8 @@ import Navbar from './Components/Navbar';
 import Footer from 'Components/Footer';
 import { useTheme } from '@mui/material/styles';
 import Sheet from 'Pages/Sheet';
-import NewTimeline from 'Pages/NewTimeline';
 import TimelineDataProvider from 'ContextProviders/TimelineDataProvider';
+import NewSpreadSheet from 'Pages/NewSpreadSheet';
 
 function App() {
   const theme = useTheme();
@@ -30,7 +30,7 @@ const Pages = () => {
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/timeline/:id" element={<Sheet />} />
-        <Route path="/new-timeline/" element={<NewTimeline />} />
+        <Route path="/new-spreadsheet/" element={<NewSpreadSheet />} />
       </Routes>
     </TimelineDataProvider>
   )

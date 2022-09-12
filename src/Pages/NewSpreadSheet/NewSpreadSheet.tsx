@@ -4,7 +4,7 @@ import AvlSheet from "Components/AvlSheet";
 import AvlTimeline from "Components/AvlTimelines/AvlEditableTimeline";
 import useTimelineDataContext from "Hooks/useTimelineDataContext";
 
-const NewTimeline = () => {
+const NewSpreadSheet = () => {
   
   const timelineDataContext = useTimelineDataContext();
   let dateTimeFrom = timelineDataContext.getTimelineData().dateTimeFrom;
@@ -40,4 +40,4 @@ const NewTimeline = () => {
     )
   }
   
-  export default NewTimeline;
+  export default NewSpreadSheet;
