@@ -6,7 +6,7 @@ import Login from './Pages/Login';
 import Navbar from './Components/Navbar';
 import Footer from 'Components/Footer';
 import { useTheme } from '@mui/material/styles';
-import Sheet from 'Pages/Sheet';
+import SpreadSheet from 'Pages/SpreadSheet';
 import TimelineDataProvider from 'ContextProviders/TimelineDataProvider';
 import NewSpreadSheet from 'Pages/NewSpreadSheet';
 import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
@@ -33,7 +33,7 @@ const Pages = () => {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/timeline/:id" element={<Sheet />} />
+        <Route path="/spreadsheet/:id" element={<SpreadSheet />} />
         <Route path="/new-spreadsheet/" element={<NewSpreadSheet />} />
       </Routes>
     </TimelineDataProvider>

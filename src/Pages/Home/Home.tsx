@@ -15,7 +15,7 @@ const Home = () => {
       <Card sx={{padding: 5}}>
         <Stack spacing={2}>
           <TextField label="Timeline id" variant="outlined" onChange={handleChange} color='secondary'/>
-          <Button color="secondary" variant="outlined" component={Link} to={"/timeline/" + id}>Go do timeline</Button>
+          <Button color="secondary" variant="outlined" component={Link} to={"/spreadsheet/" + id}>Go do timeline</Button>
         </Stack>
       </Card>
       <Card sx={{padding: 5}}>
