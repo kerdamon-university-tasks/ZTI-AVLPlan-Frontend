@@ -28,7 +28,7 @@ export async function fetchSpreadSheet(id:string|undefined): Promise<SpreadSheet
   }
 }
 
-export async function postTimeline(timelineData: TimelineData): Promise<void> {
+export async function postTimeline(timelineData: TimelineData) {
   try{
     return await axios.post('/avlitem/timeline/', timelineData);
   } catch (error) {
@@ -36,7 +36,7 @@ export async function postTimeline(timelineData: TimelineData): Promise<void> {
   }
 }
 
-export async function postSpreadSheet(spreadSheetData: SpreadSheetPostData): Promise<void> {
+export async function postSpreadSheet(spreadSheetData: SpreadSheetPostData) {
   try{
     return await axios.post('/avlitem/spreadsheet/', spreadSheetData);
   } catch (error) {

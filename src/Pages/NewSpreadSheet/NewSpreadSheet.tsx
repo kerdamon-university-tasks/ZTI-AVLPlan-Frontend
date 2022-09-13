@@ -3,12 +3,13 @@ import { DesktopDatePicker, TimePicker } from "@mui/x-date-pickers";
 import { postSpreadSheet } from "Api";
 import moment, { Moment } from "moment";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const NewSpreadSheet = () => {
   const [dateTimeFrom, setDateTimeFrom] = useState<Moment | null>(moment().hour(8).minute(0));
   const [dateTimeTo, setDateTimeTo] = useState<Moment | null>(moment().hour(20).minute(0).add(7, 'days'));
   const [eventName, setEventName] = useState<string>('Event');
+  let navigate = useNavigate();
 
   const handleChangeFrom = (newValue: Moment | null) => {
     setDateTimeFrom(newValue);
@@ -21,14 +22,15 @@ const NewSpreadSheet = () => {
     setEventName(event.target.value);
   }
 
-  const onClick = () => {
-    postSpreadSheet({
+  const onClick = async () => {
+    const response = await postSpreadSheet({
       eventName,
       dateTimeFrom,
       dateTimeTo,
       avltimelineIds: []
     });
-    
+    const createdSpreadsheetId = response.data;
+    navigate(`/spreadsheet/${createdSpreadsheetId}`);
   }
 
   return (
