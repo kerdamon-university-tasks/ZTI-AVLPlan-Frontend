@@ -1,6 +1,6 @@
 import axios from "./axiosInstance";
 
-import {SpreadSheetData, TimelineData} from './types'
+import {SpreadSheetData, SpreadSheetPostData, TimelineData} from './types'
 
 export async function fetchTimeline(id:string|undefined): Promise<TimelineData> {
   try{
@@ -33,5 +33,13 @@ export async function postTimeline(timelineData: TimelineData): Promise<void> {
     return await axios.post('/avlitem/timeline/', timelineData);
   } catch (error) {
     throw new Error('Failed to post timelines');
+  }
+}
+
+export async function postSpreadSheet(spreadSheetData: SpreadSheetPostData): Promise<void> {
+  try{
+    return await axios.post('/avlitem/spreadsheet/', spreadSheetData);
+  } catch (error) {
+    throw new Error('Failed to post spreadsheet');
   }
 }

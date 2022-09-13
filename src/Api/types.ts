@@ -1,3 +1,5 @@
+import { Moment } from "moment";
+
 export type TimelineData = {
   user: string;
   dateTimeFrom: Date;
@@ -7,6 +9,13 @@ export type TimelineData = {
 
 export type SpreadSheetData = {
   avltimelines: TimelineData[];
+}
+
+export type SpreadSheetPostData = {
+  eventName: string;
+  dateTimeFrom: Moment | null;
+  dateTimeTo: Moment | null;
+  avltimelineIds: String[];
 }
 
 export type AvlSpan = {
