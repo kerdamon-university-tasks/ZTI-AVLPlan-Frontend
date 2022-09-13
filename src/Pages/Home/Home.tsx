@@ -12,14 +12,14 @@ const Home = () => {
 
   return (
     <div style={{margin: 40}}>
-      <Card sx={{padding: 5, backgroundColor: "#3E3F59"}}>
+      <Card sx={{padding: 5}}>
         <Stack spacing={2}>
           <TextField label="Timeline id" variant="outlined" onChange={handleChange} color='secondary'/>
           <Button color="secondary" variant="outlined" component={Link} to={"/timeline/" + id}>Go do timeline</Button>
         </Stack>
       </Card>
-      <Card sx={{padding: 5, backgroundColor: "#3E3F59"}}>
-        <Button color="secondary" variant="outlined" component={Link} to={"/new-timeline"}>Create new Timeline</Button>
+      <Card sx={{padding: 5}}>
+        <Button variant="outlined" component={Link} to={"/new-spreadsheet"}>Create new Timeline</Button>
       </Card>
     </div>
     )

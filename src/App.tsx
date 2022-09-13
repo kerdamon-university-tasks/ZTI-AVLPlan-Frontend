@@ -9,17 +9,21 @@ import { useTheme } from '@mui/material/styles';
 import Sheet from 'Pages/Sheet';
 import TimelineDataProvider from 'ContextProviders/TimelineDataProvider';
 import NewSpreadSheet from 'Pages/NewSpreadSheet';
+import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
+import { LocalizationProvider } from '@mui/x-date-pickers';
 
 function App() {
   const theme = useTheme();
   return (
-    <Stack sx={{minHeight: '100vh'}}>
-      <Navbar />
-      <Stack alignItems='baseline' justifyContent='center' direction='row' sx={{ flex: 1, backgroundColor: theme.palette.primary.dark }}>
-        <Pages/>
+    <LocalizationProvider dateAdapter={AdapterMoment}>
+      <Stack sx={{minHeight: '100vh'}}>
+        <Navbar />
+        <Stack alignItems='baseline' justifyContent='center' direction='row' sx={{ flex: 1, backgroundColor: theme.palette.primary.dark }}>
+          <Pages/>
+        </Stack>
+        <Footer />
       </Stack>
-      <Footer />
-    </Stack>
+    </LocalizationProvider>
   );
 }
 
