@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 
 const NewSpreadSheet = () => {
   const [dateTimeFrom, setDateTimeFrom] = useState<Moment | null>(moment().hour(8).minute(0));
-  const [dateTimeTo, setDateTimeTo] = useState<Moment | null>(moment().hour(20).minute(0));
+  const [dateTimeTo, setDateTimeTo] = useState<Moment | null>(moment().hour(20).minute(0).add(7, 'days'));
   const [eventName, setEventName] = useState<string>('Event');
 
   const handleChangeFrom = (newValue: Moment | null) => {
