@@ -11,10 +11,9 @@ import AvlSummaryTimeline from "Components/AvlTimelines/AvlSummaryTimeline";
 const SpreadSheet = () => {
   let {id} = useParams();  
   const timelineDataContext = useTimelineDataContext();
-
   const {data: spreadsheet, isLoading: isSpreadSheetLoading, isError: isSpreadSheetError} = useQuery(['spreadsheet'], async () => {
-    const spreadSheet = await fetchSpreadSheet("631ff5f1c2cf1146fbe0618b");
-    const timeline = spreadSheet.avltimelines[0];
+    const spreadSheet = await fetchSpreadSheet(id);
+    const timeline = spreadSheet.avltimelines[0]; // TODO change to gettind currentuser timeline
     timelineDataContext.setDateTimeFrom(timeline.dateTimeFrom);
     timelineDataContext.setDateTimeTo(timeline.dateTimeTo);
     timelineDataContext.setUser(timeline.user);
@@ -23,7 +22,9 @@ const SpreadSheet = () => {
   });
 
   const handleOnClick = () => {
-    postTimeline(timelineDataContext.getTimelineData());
+    //postTimeline(timelineDataContext.getTimelineData());
+    console.log('Post timeline to spreadsheet');
+    
   }
 
   return (
