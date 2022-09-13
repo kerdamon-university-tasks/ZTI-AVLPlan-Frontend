@@ -11,16 +11,16 @@ import AvlSummaryTimeline from "Components/AvlTimelines/AvlSummaryTimeline";
 const SpreadSheet = () => {
   let {id} = useParams();  
   const timelineDataContext = useTimelineDataContext();
-  const {isLoading, isError} = useQuery(['timeline'], async () => {
-    const timeline = await fetchTimeline(id);
+
+  const {data: spreadsheet, isLoading: isSpreadSheetLoading, isError: isSpreadSheetError} = useQuery(['spreadsheet'], async () => {
+    const spreadSheet = await fetchSpreadSheet("631ff5f1c2cf1146fbe0618b");
+    const timeline = spreadSheet.avltimelines[0];
     timelineDataContext.setDateTimeFrom(timeline.dateTimeFrom);
     timelineDataContext.setDateTimeTo(timeline.dateTimeTo);
     timelineDataContext.setUser(timeline.user);
     timelineDataContext.setAvlspans(timeline.avlspans);
-    return timeline;
-  })
-
-  const {data: spreadsheet, isLoading: isSpreadSheetLoading, isError: isSpreadSheetError} = useQuery(['spreadsheet'], () => fetchSpreadSheet("631f8fefc63b452ffba80210"));
+    return spreadSheet;
+  });
 
   const handleOnClick = () => {
     postTimeline(timelineDataContext.getTimelineData());
@@ -33,10 +33,10 @@ const SpreadSheet = () => {
           <Grid container spacing={5}>
             <Grid alignItems='center'>
             {
-              isLoading ? (
+              isSpreadSheetLoading ? (
                 <Typography variant='h3' color='primary.contrastText'>Loading</Typography>
               ) : (
-                isError ? (
+                isSpreadSheetError ? (
                   <Typography variant='h3' color='primary.contrastText'>Error</Typography>
                 ) : (
                   <Stack alignItems="center" spacing={5}>
