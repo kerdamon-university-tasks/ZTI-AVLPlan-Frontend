@@ -7,7 +7,6 @@ import useTimelineDataContext from "Hooks/useTimelineDataContext";
 import AvlEditableTimeline from "Components/AvlTimelines/AvlEditableTimeline";
 import AvlSummaryTimeline from "Components/AvlTimelines/AvlSummaryTimeline";
 import useIdFromParams from "Hooks/useIdFromParams";
-import { useState } from "react";
 
 const SpreadSheet = () => {
   const spreadSheetId = useIdFromParams(); 

@@ -4,7 +4,7 @@ import { Link } from "react-router-dom"
 
 const Navbar = () => {
   const publicLinks = [
-    <Button color="inherit" component={Link} to="/login">Login</Button>
+    <Button key="login" color="inherit" component={Link} to="/login">Login</Button>
   ];
   
   return (
@@ -24,7 +24,7 @@ const Navbar = () => {
         <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
           AVL Plan
         </Typography>
-        {/* {publicLinks} */}
+        {publicLinks}
       </Toolbar>
     </AppBar>
     );
