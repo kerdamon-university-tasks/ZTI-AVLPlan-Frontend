@@ -1,29 +1,33 @@
 import { Button, Card, Paper, Stack, Typography } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
 import { useQuery } from '@tanstack/react-query';
-import { fetchSpreadSheet, fetchTimeline, postTimeline } from "Api";
-import { useParams } from "react-router-dom";
+import { fetchSpreadSheet, postTimeline } from "Api";
 import AvlSheet from "Components/AvlSheet";
 import useTimelineDataContext from "Hooks/useTimelineDataContext";
 import AvlEditableTimeline from "Components/AvlTimelines/AvlEditableTimeline";
 import AvlSummaryTimeline from "Components/AvlTimelines/AvlSummaryTimeline";
+import useIdFromParams from "Hooks/useIdFromParams";
+import { useState } from "react";
 
 const SpreadSheet = () => {
-  let {id} = useParams();  
+  const spreadSheetId = useIdFromParams(); 
   const timelineDataContext = useTimelineDataContext();
   const {data: spreadsheet, isLoading: isSpreadSheetLoading, isError: isSpreadSheetError} = useQuery(['spreadsheet'], async () => {
-    const spreadSheet = await fetchSpreadSheet(id);
-    // const timeline = spreadSheet.avltimelines[0]; // TODO change to gettind currentuser timeline
+    const spreadSheet = await fetchSpreadSheet(spreadSheetId);
+    const timeline = spreadSheet.avltimelines.find(timeline => timeline.user === 'current user') // TODO change to logged user
+    console.log('timeline');
+    console.log(timeline);
+    
+    if(timeline){
+      timelineDataContext.setAvlspans(timeline.avlspans);
+    }
     timelineDataContext.setDateTimeFrom(spreadSheet.dateTimeFrom);
     timelineDataContext.setDateTimeTo(spreadSheet.dateTimeTo);
-    // timelineDataContext.setAvlspans(timeline.avlspans);
     return spreadSheet;
   });
 
   const handleOnClick = () => {
-    //postTimeline(timelineDataContext.getTimelineData());
-    console.log('Post timeline to spreadsheet');
-    
+    postTimeline(spreadSheetId, timelineDataContext.getTimelineData());
   }
 
   return (

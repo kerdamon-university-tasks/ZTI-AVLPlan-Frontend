@@ -4,17 +4,15 @@ import useTimelineDataContext from "Hooks/useTimelineDataContext";
 
 const AvlSheet = ({children}: {children: React.ReactNode}) => {
   const timelineDataContext = useTimelineDataContext();
-
   const numberOfHours = timelineDataContext.getNumberOfHours();
   const numberOfDays = timelineDataContext.getNumberOfDays();
-  const timelineData = timelineDataContext.getTimelineData();
 
   return (
     <Stack direction='row' spacing={1.5} justifyContent='center' alignItems='flex-end'>
-      <HourColumn hourFrom={timelineData.dateTimeFrom.getHours()} numberOfHours={numberOfHours}/>
+      <HourColumn hourFrom={numberOfHours} numberOfHours={numberOfHours}/>
       <Stack>
         <Box mb={1}>
-          <DayRow dayFrom={timelineData.dateTimeFrom.getDate()} numberOfDays={numberOfDays}/>
+          <DayRow dayFrom={numberOfDays} numberOfDays={numberOfDays}/>
         </Box>
           <Stack direction='row'>
             {children}

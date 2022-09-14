@@ -19,8 +19,6 @@ const TimelineDataProvider = ({children}: {children?: React.ReactNode}) => {
   const getTimelineData = () => {
     return {
       user,
-      dateTimeFrom,
-      dateTimeTo,
       avlspans,
     }
   }

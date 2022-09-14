@@ -6,8 +6,6 @@ export async function fetchTimeline(id:string|undefined): Promise<TimelineData> 
   try{
     const response = await axios.get<TimelineData>('/avlitem/timeline/' + id);
     let timeline = response.data;
-    timeline.dateTimeFrom = new Date(timeline.dateTimeFrom);
-    timeline.dateTimeTo = new Date(timeline.dateTimeTo);
     return timeline;
   } catch (error) {
     throw new Error('Failed to fetch timelines');
@@ -20,19 +18,17 @@ export async function fetchSpreadSheet(id:string|undefined): Promise<SpreadSheet
     let spreadsheet = response.data;
     spreadsheet.dateTimeFrom = new Date(spreadsheet.dateTimeFrom);
     spreadsheet.dateTimeTo = new Date(spreadsheet.dateTimeTo);
-    spreadsheet.avltimelines.forEach(timeline => {
-      timeline.dateTimeFrom = new Date(timeline.dateTimeFrom);
-      timeline.dateTimeTo = new Date(timeline.dateTimeTo);
-    });
     return spreadsheet;
   } catch (error) {
     throw new Error('Failed to fetch spreadsheets');
   }
 }
 
-export async function postTimeline(timelineData: TimelineData) {
+export async function postTimeline(spreadSheetId: string, timelineData: TimelineData) {
   try{
-    return await axios.post('/avlitem/timeline/', timelineData);
+    console.log('Postuje timelineData');
+    console.log(timelineData);
+    return await axios.post(`/avlitem/spreadsheet/${spreadSheetId}/timeline`, timelineData);
   } catch (error) {
     throw new Error('Failed to post timelines');
   }

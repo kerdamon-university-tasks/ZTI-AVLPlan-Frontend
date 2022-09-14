@@ -11,7 +11,7 @@ export const AvlEditableTimeline = () => {
   const numberOfDays = timelineDataContext.getNumberOfDays();
   const timelineData = timelineDataContext.getTimelineData();
 
-  const availabilityTypeArray = crateAvailabilityTypeArrayFromAvlSpans(numberOfDays, numberOfHours, timelineData.dateTimeFrom.getHours(), timelineData.avlspans);
+  const availabilityTypeArray = crateAvailabilityTypeArrayFromAvlSpans(numberOfDays, numberOfHours, timelineData.avlspans);
 
   const [stateTable, setStateTable] = useState<number[][][]>(availabilityTypeArray); //2x2 table of hours, each hours has 4 quarters. Number represent availability type, that is color
 
@@ -107,7 +107,7 @@ const AVLHour = ({hourAvailabilityTypes, coordinates, onTimelineClick}: {hourAva
   )
 }
 
-const crateAvailabilityTypeArrayFromAvlSpans = (numberOfDays:number, numberOfHours:number, hourFrom:number, avlSpans: AvlSpan[]) => {
+const crateAvailabilityTypeArrayFromAvlSpans = (numberOfDays:number, numberOfHours:number, avlSpans: AvlSpan[]) => {
   const availabilityTypeArray = new Array(numberOfDays);
   for (let day = 0; day < numberOfDays; day++) {
     availabilityTypeArray[day] = new Array(numberOfHours);
