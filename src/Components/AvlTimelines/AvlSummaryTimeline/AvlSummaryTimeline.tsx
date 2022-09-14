@@ -5,15 +5,12 @@ import { columnWidth, modifyAvailabilityTypeArray, rowHeight } from "../AvlSheet
 import { AVLSummaryAtomicTimeProps } from "../types";
 import { theme } from "Theme";
 import { alpha } from "@mui/material";
+import useTimelineDataContext from "Hooks/useTimelineDataContext";
 
 export const AvlSummaryTimeline = ({avlTimelines}: {avlTimelines: TimelineData[]}) => {
-  //craete availabilityTypeArray for teach timeline -> availabilityTypeArray[]
-  //add current live state table values passed in props: 
-  //{liveStateTable}: {liveStateTable:number[][][]}
-  //calculate summaryStateArray -> summaryStateArray, max value
-  
-  let numberOfHours = avlTimelines[0].dateTimeTo.getHours() - avlTimelines[0].dateTimeFrom.getHours();
-  let numberOfDays = avlTimelines[0].dateTimeTo.getDate() - avlTimelines[0].dateTimeFrom.getDate() + 1;
+  const timelineDataContext = useTimelineDataContext();
+  const numberOfHours = timelineDataContext.getNumberOfHours();
+  const numberOfDays = timelineDataContext.getNumberOfDays();
 
   let availabilityTypeArrays:number[][][][] = [];
   avlTimelines.forEach(timeline => {

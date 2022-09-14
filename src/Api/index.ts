@@ -18,6 +18,8 @@ export async function fetchSpreadSheet(id:string|undefined): Promise<SpreadSheet
   try{
     const response = await axios.get<SpreadSheetData>('/avlitem/spreadsheet/' + id);
     let spreadsheet = response.data;
+    spreadsheet.dateTimeFrom = new Date(spreadsheet.dateTimeFrom);
+    spreadsheet.dateTimeTo = new Date(spreadsheet.dateTimeTo);
     spreadsheet.avltimelines.forEach(timeline => {
       timeline.dateTimeFrom = new Date(timeline.dateTimeFrom);
       timeline.dateTimeTo = new Date(timeline.dateTimeTo);

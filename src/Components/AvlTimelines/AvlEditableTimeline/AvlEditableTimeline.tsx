@@ -7,7 +7,6 @@ import { AVLEditableAtomicTimeProps, TimelineClickFunc, TimelineState } from "..
 
 export const AvlEditableTimeline = () => {
   const timelineDataContext = useTimelineDataContext();
-
   const numberOfHours = timelineDataContext.getNumberOfHours();
   const numberOfDays = timelineDataContext.getNumberOfDays();
   const timelineData = timelineDataContext.getTimelineData();

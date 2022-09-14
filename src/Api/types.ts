@@ -8,6 +8,8 @@ export type TimelineData = {
 }
 
 export type SpreadSheetData = {
+  dateTimeFrom: Date;
+  dateTimeTo: Date;
   avltimelines: TimelineData[];
 }
 
