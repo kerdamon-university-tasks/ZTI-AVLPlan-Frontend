@@ -4,13 +4,18 @@ export type User = {
   username: string;
 }
 
-export type LoginData = {
+export type LoggedUserData = {
   username: string;
-  token: string;
+  token: TokenData;
+}
+
+export type TokenData = {
+  access_token: string;
+  refresh_token: string;
 }
 
 export type AuthContextValues = {
   user?: User;
-  login(loginData: LoginData): void;
+  login(loginData: LoggedUserData): void;
   logout(): void;
 }

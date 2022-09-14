@@ -28,3 +28,8 @@ export type AvlTimelineCoordinates = {
   quarterIndex: number;
   day: number;
 }
+
+export type LoginData = {
+  username: string;
+  password: string;
+}

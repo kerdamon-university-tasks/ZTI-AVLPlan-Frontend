@@ -1,24 +1,27 @@
 import React, { useState } from 'react';
-import { AuthContextValues, LoginData, User } from './types';
+import { AuthContextValues, LoggedUserData, User } from './types';
 
 export const AuthContext = React.createContext<AuthContextValues | undefined>(undefined);
 
 const AuthProvider = ({children}: {children: React.ReactNode}) => {
   const [user, setUser] = useState<User>();
 
-  const login = (loginData: LoginData) => {
+  const login = (loginData: LoggedUserData) => {
     const user = {
       username: loginData.username,
     }
     const token = loginData.token;
   
     setUser(user);
-    localStorage.setItem('accessToken', token);
+    localStorage.setItem('access_token', token.access_token);
+    console.log(`Ustawiam access token`);
+    console.log(token.access_token);
+    
   };
 
   const logout = () => {
     setUser(undefined);
-    localStorage.removeItem('accessToken');
+    localStorage.removeItem('access_token');
   }
 
   const values = {

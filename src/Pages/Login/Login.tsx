@@ -5,11 +5,11 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import { useForm } from 'react-hook-form';
 import useAuth from 'Hooks/useAuth';
-import axios from 'axios';
 import {Navigate} from 'react-router-dom'
+import { login } from 'Api';
 
 const defaultValues = {
-  email: '',
+  username: '',
   password: '',
 }; 
  
@@ -21,14 +21,13 @@ const Login = () => {
   if(auth.user) return <Navigate to='/' />
 
   const fields = {
-    email: register('email', {required: true, minLength: 3}),
+    email: register('username', {required: true, minLength: 3}),
     password: register('password', {required: true, minLength: {value: 3, message: "Password too short"}}),
   }
 
-  const onSubmit = (values: LoginFormValues) => {
-    console.log(values);
-    axios.post("/login", {login: values.email, password: values.password})
-    .then(res => console.log(res))
+  const onSubmit = async (formValues: LoginFormValues) => {
+    const token = await login({username: formValues.username, password: formValues.password})
+    auth.login({username: formValues.username, token});
   };
 
   return (
