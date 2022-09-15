@@ -43,7 +43,7 @@ const SpreadSheet = () => {
                   <Typography variant='h3' color='primary.contrastText'>Error</Typography>
                 ) : (
                   <Stack alignItems="center" spacing={5}>
-                    <Typography variant='h3' color='primary.contrastText'>Twoja Dostępność</Typography>
+                    <Typography variant='h3' color='primary.contrastText'>Yours availability</Typography>
                     <AvlSheet>
                       <AvlEditableTimeline/>
                     </AvlSheet>
@@ -61,7 +61,7 @@ const SpreadSheet = () => {
                   <Typography variant='h3' color='primary.contrastText'>Error spreadsheet</Typography>
                 ) : (
                   <Stack alignItems="center" spacing={5}>
-                    <Typography variant='h3' color='primary.contrastText'>Zbiorowa Dostępność</Typography>
+                    <Typography variant='h3' color='primary.contrastText'>Summary availability</Typography>
                     <AvlSheet>
                       <AvlSummaryTimeline avlTimelines={spreadsheet.avltimelines}/>
                     </AvlSheet>
