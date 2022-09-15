@@ -4,7 +4,8 @@ import { Link } from "react-router-dom"
 
 const Navbar = () => {
   const publicLinks = [
-    <Button key="login" color="inherit" component={Link} to="/login">Login</Button>
+    <Button key="login" color="inherit" component={Link} to="/login">Login</Button>,
+    <Button key="register" color="inherit" component={Link} to="/register">Register</Button>
   ];
   
   return (

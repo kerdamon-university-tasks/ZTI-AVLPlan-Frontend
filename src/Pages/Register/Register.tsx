@@ -6,7 +6,7 @@ import Button from '@mui/material/Button';
 import { useForm } from 'react-hook-form';
 import useAuth from 'Hooks/useAuth';
 import {Link, Navigate} from 'react-router-dom'
-import { login } from 'Api';
+import { login, registerNewUser } from 'Api';
 
 const defaultValues = {
   username: '',
@@ -15,7 +15,7 @@ const defaultValues = {
  
 type LoginFormValues = typeof defaultValues;
 
-const Login = () => {
+const Register = () => {
   const auth = useAuth();
   const {handleSubmit, register, formState: {errors}} = useForm({defaultValues});
   if(auth.user) return <Navigate to='/' />
@@ -26,6 +26,7 @@ const Login = () => {
   }
 
   const onSubmit = async (formValues: LoginFormValues) => {
+    await registerNewUser({username: formValues.username, password: formValues.password})
     const token = await login({username: formValues.username, password: formValues.password})
     auth.login({username: formValues.username, token});
   };
@@ -34,16 +35,16 @@ const Login = () => {
     <Stack justifyContent="center" alignItems='center' flex={1} flexDirection="column">
       <Paper sx={{padding: '20px', marginTop: '100px', width: '400px'}} elevation={5}>
         <Stack spacing={2} component='form' onSubmit={handleSubmit(onSubmit)}>
-          <Typography variant='h4' gutterBottom>Login</Typography>
-          <TextField label="Email" variant="outlined" inputProps={{...fields.email}} />
+          <Typography variant='h4' gutterBottom>Register</Typography>
+          <TextField label="Username" variant="outlined" inputProps={{...fields.email}} />
           <TextField label="Password" type="password" variant="outlined" inputProps={{...fields.password}} />
           {errors.password && <Typography>{errors.password.message}</Typography>}
-          <Button type='submit' variant='contained'>Login</Button>
-          <Button component={Link} to="/register">Don't have account? Register</Button>
+          <Button type='submit' variant='contained'>Register</Button>
+          <Button component={Link} to="/login">Already have account? Login</Button>
         </Stack>
       </Paper>
     </Stack>
   )
 }
 
-export default Login
+export default Register

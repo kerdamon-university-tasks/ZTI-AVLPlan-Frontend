@@ -4,7 +4,6 @@ const Footer = () => {
   return (
     <AppBar position="static">
       <Toolbar>
-        dupa
       </Toolbar>
     </AppBar>
   )

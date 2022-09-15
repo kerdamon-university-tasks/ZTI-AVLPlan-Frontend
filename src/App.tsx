@@ -12,6 +12,7 @@ import NewSpreadSheet from 'Pages/NewSpreadSheet';
 import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import AuthProvider from 'ContextProviders/AuthProvider/AuthProvider';
+import Register from 'Pages/Register';
 
 function App() {
   const theme = useTheme();
@@ -36,8 +37,9 @@ const Pages = () => {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
         <Route path="/spreadsheet/:id" element={<SpreadSheet />} />
-        <Route path="/new-spreadsheet/" element={<NewSpreadSheet />} />
+        <Route path="/new-spreadsheet" element={<NewSpreadSheet />} />
       </Routes>
     </TimelineDataProvider>
   )
