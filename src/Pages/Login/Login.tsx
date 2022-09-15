@@ -35,7 +35,7 @@ const Login = () => {
       <Paper sx={{padding: '20px', marginTop: '100px', width: '400px'}} elevation={5}>
         <Stack spacing={2} component='form' onSubmit={handleSubmit(onSubmit)}>
           <Typography variant='h4' gutterBottom>Login</Typography>
-          <TextField label="Email" variant="outlined" inputProps={{...fields.email}} />
+          <TextField label="Username" variant="outlined" inputProps={{...fields.email}} />
           <TextField label="Password" type="password" variant="outlined" inputProps={{...fields.password}} />
           {errors.password && <Typography>{errors.password.message}</Typography>}
           <Button type='submit' variant='contained'>Login</Button>
