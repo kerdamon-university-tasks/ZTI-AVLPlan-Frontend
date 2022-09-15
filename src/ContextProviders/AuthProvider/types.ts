@@ -6,12 +6,7 @@ export type User = {
 
 export type LoggedUserData = {
   username: string;
-  token: TokenData;
-}
-
-export type TokenData = {
-  access_token: string;
-  refresh_token: string;
+  token: string;
 }
 
 export type AuthContextValues = {

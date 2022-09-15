@@ -7,16 +7,15 @@ import useTimelineDataContext from "Hooks/useTimelineDataContext";
 import AvlEditableTimeline from "Components/AvlTimelines/AvlEditableTimeline";
 import AvlSummaryTimeline from "Components/AvlTimelines/AvlSummaryTimeline";
 import useIdFromParams from "Hooks/useIdFromParams";
+import useAuth from "Hooks/useAuth";
 
 const SpreadSheet = () => {
   const spreadSheetId = useIdFromParams(); 
   const timelineDataContext = useTimelineDataContext();
+  const auth = useAuth();
   const {data: spreadsheet, isLoading: isSpreadSheetLoading, isError: isSpreadSheetError} = useQuery(['spreadsheet'], async () => {
     const spreadSheet = await fetchSpreadSheet(spreadSheetId);
-    const timeline = spreadSheet.avltimelines.find(timeline => timeline.user === 'current user') // TODO change to logged user
-    console.log('timeline');
-    console.log(timeline);
-    
+    const timeline = spreadSheet.avltimelines.find(timeline => timeline.user === auth.user?.username) // TODO change to logged user
     if(timeline){
       timelineDataContext.setAvlspans(timeline.avlspans);
     }

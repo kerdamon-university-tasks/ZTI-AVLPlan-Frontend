@@ -23,13 +23,12 @@ const NewSpreadSheet = () => {
   }
 
   const onClick = async () => {
-    const response = await postSpreadSheet({
+    const createdSpreadsheetId = await postSpreadSheet({
       eventName,
       dateTimeFrom,
       dateTimeTo,
       avltimelineIds: []
     });
-    const createdSpreadsheetId = response.data;
     navigate(`/spreadsheet/${createdSpreadsheetId}`);
   }
 

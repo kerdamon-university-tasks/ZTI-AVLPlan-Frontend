@@ -1,7 +1,7 @@
 import { Moment } from "moment";
 
 export type TimelineData = {
-  user: string;
+  user?: string;
   avlspans: AvlSpan[];
 }
 

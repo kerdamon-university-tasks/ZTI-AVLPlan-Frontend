@@ -6,16 +6,15 @@ const getToken = (): string => {
   const token = localStorage.getItem("access_token");
   if(!token)
     throw new Error("Token is empty");
-  const beareredToken = "Bearer " + token;
-  console.log(beareredToken);
-  
-  return beareredToken;
+  // const beareredToken = "Bearer " + token;
+  // console.log(beareredToken);
+  return token;
 }
 
 export async function fetchTimeline(id:string|undefined): Promise<TimelineData> {
   try{
-
-    const response = await axios.get<TimelineData>('/avlitem/timeline/' + id, { headers: { 'Authorization': getToken() } });
+    const config = { headers: { Authorization: `Bearer ${getToken()}` } };
+    const response = await axios.get<TimelineData>('/avlitem/timeline/' + id, config);
     let timeline = response.data;
     return timeline;
   } catch (error) {
@@ -25,7 +24,8 @@ export async function fetchTimeline(id:string|undefined): Promise<TimelineData> 
 
 export async function fetchSpreadSheet(id:string|undefined): Promise<SpreadSheetData> {
   try{
-    const response = await axios.get<SpreadSheetData>('/avlitem/spreadsheet/' + id, { headers: { 'Authorization': getToken() } });
+    const config = { headers: { Authorization: `Bearer ${getToken()}` } };
+    const response = await axios.get<SpreadSheetData>('/avlitem/spreadsheet/' + id, config);
     let spreadsheet = response.data;
     spreadsheet.dateTimeFrom = new Date(spreadsheet.dateTimeFrom);
     spreadsheet.dateTimeTo = new Date(spreadsheet.dateTimeTo);
@@ -37,7 +37,8 @@ export async function fetchSpreadSheet(id:string|undefined): Promise<SpreadSheet
 
 export async function postTimeline(spreadSheetId: string, timelineData: TimelineData) {
   try{
-    return await axios.post(`/avlitem/spreadsheet/${spreadSheetId}/timeline`, timelineData, { headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': getToken() } });
+    const config = { headers: { Authorization: `Bearer ${getToken()}` } };
+    return await axios.post(`/avlitem/spreadsheet/${spreadSheetId}/timeline`, timelineData, config);
   } catch (error) {
     throw new Error('Failed to post timelines');
   }
@@ -45,12 +46,9 @@ export async function postTimeline(spreadSheetId: string, timelineData: Timeline
 
 export async function postSpreadSheet(spreadSheetData: SpreadSheetPostData) {
   try{
-    const token = getToken();
-    console.log(`Token: ${token}`);
-    const headers = {
-      Authorization: token
-    }
-    return await axios.post('/avlitem/spreadsheet/', spreadSheetData, { headers: headers });
+    const config = { headers: { Authorization: `Bearer ${getToken()}` } };
+    const response = await axios.post('/avlitem/spreadsheet', spreadSheetData, config);
+    return response.data;
   } catch (error) {
     throw new Error('Failed to post spreadsheet');
   }
@@ -58,7 +56,7 @@ export async function postSpreadSheet(spreadSheetData: SpreadSheetPostData) {
 
 export async function login(loginData: LoginData) {
   try{
-    const response = await axios.post('/login', qs.stringify(loginData), { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } });
+    const response = await axios.post('/login', loginData);
     return response.data;
   } catch (error) {
     throw new Error(`Failed to login: ${error}`);

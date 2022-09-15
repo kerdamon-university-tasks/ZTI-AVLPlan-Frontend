@@ -13,10 +13,7 @@ const AuthProvider = ({children}: {children: React.ReactNode}) => {
     const token = loginData.token;
   
     setUser(user);
-    localStorage.setItem('access_token', token.access_token);
-    console.log(`Ustawiam access token`);
-    console.log(token.access_token);
-    
+    localStorage.setItem('access_token', token);
   };
 
   const logout = () => {

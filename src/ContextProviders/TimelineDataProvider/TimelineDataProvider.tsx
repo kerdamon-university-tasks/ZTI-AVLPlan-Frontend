@@ -1,13 +1,14 @@
 import { AvlSpan } from "Api/types";
+import useAuth from "Hooks/useAuth";
 import React, { useState } from "react";
 import { TimelineDataValues } from "./types";
 
 export const TimelineDataContext = React.createContext<TimelineDataValues | undefined>(undefined);
 
 const TimelineDataProvider = ({children}: {children?: React.ReactNode}) => {
+  const auth = useAuth();
   const [dateTimeFrom, setDateTimeFrom] = useState<Date>(new Date());
   const [dateTimeTo, setDateTimeTo] = useState<Date>(new Date());
-  const [user, setUser] = useState('');
   const [avlspans, setAvlspans] = useState<AvlSpan[]>([]);
 
   const addAvlSpan = (avlSpan:AvlSpan) => {
@@ -18,7 +19,7 @@ const TimelineDataProvider = ({children}: {children?: React.ReactNode}) => {
 
   const getTimelineData = () => {
     return {
-      user,
+      user: auth.user?.username,
       avlspans,
     }
   }
@@ -36,7 +37,6 @@ const TimelineDataProvider = ({children}: {children?: React.ReactNode}) => {
     addAvlSpan,
     setDateTimeFrom,
     setDateTimeTo,
-    setUser,
     setAvlspans,
     getNumberOfHours,
     getNumberOfDays
