@@ -1,6 +1,7 @@
 import { Button, Card, Paper, Stack, TextField, Typography } from "@mui/material";
 import { DesktopDatePicker, TimePicker } from "@mui/x-date-pickers";
 import { postSpreadSheet } from "Api";
+import withAuth from "ContextProviders/AuthProvider/withAuth";
 import moment, { Moment } from "moment";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
@@ -92,4 +93,4 @@ const NewSpreadSheet = () => {
     )
   }
   
-  export default NewSpreadSheet;
+  export default withAuth(NewSpreadSheet);

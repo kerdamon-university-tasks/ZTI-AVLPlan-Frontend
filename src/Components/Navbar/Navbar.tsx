@@ -29,7 +29,7 @@ const Navbar = () => {
         >
           <ClockIcon />
         </IconButton>
-        <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+        <Typography variant="h5" color='primary.contrastText' component={Link} to="/" sx={{ flexGrow: 1 }}>
           AVL Plan
         </Typography>
         { auth.user ? authorizedLinks : publicLinks }

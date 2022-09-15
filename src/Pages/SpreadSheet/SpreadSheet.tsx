@@ -8,6 +8,7 @@ import AvlEditableTimeline from "Components/AvlTimelines/AvlEditableTimeline";
 import AvlSummaryTimeline from "Components/AvlTimelines/AvlSummaryTimeline";
 import useIdFromParams from "Hooks/useIdFromParams";
 import useAuth from "Hooks/useAuth";
+import withAuth from "ContextProviders/AuthProvider/withAuth";
 
 const SpreadSheet = () => {
   const spreadSheetId = useIdFromParams(); 
@@ -79,4 +80,4 @@ const SpreadSheet = () => {
     )
   }
   
-  export default SpreadSheet;
+  export default withAuth(SpreadSheet);
