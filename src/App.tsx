@@ -13,6 +13,7 @@ import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import AuthProvider from 'ContextProviders/AuthProvider/AuthProvider';
 import Register from 'Pages/Register';
+import Logout from 'Pages/Logout';
 
 function App() {
   const theme = useTheme();
@@ -38,6 +39,7 @@ const Pages = () => {
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/logout" element={<Logout />} />
         <Route path="/spreadsheet/:id" element={<SpreadSheet />} />
         <Route path="/new-spreadsheet" element={<NewSpreadSheet />} />
       </Routes>

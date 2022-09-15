@@ -1,13 +1,20 @@
 import { AppBar, Button, IconButton, Toolbar, Typography } from "@mui/material"
 import ClockIcon from '@mui/icons-material/AccessTime'
 import { Link } from "react-router-dom"
+import useAuth from "Hooks/useAuth";
 
 const Navbar = () => {
+  const auth = useAuth();
+
   const publicLinks = [
     <Button key="login" color="inherit" component={Link} to="/login">Login</Button>,
     <Button key="register" color="inherit" component={Link} to="/register">Register</Button>
   ];
   
+  const authorizedLinks = [
+    <Button key="logout" color="inherit" component={Link} to="/logout">Logout</Button>
+  ]
+
   return (
     <AppBar position="static">
       <Toolbar>
@@ -25,7 +32,7 @@ const Navbar = () => {
         <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
           AVL Plan
         </Typography>
-        {publicLinks}
+        { auth.user ? authorizedLinks : publicLinks }
       </Toolbar>
     </AppBar>
     );
