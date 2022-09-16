@@ -1,6 +1,7 @@
+import { AxiosError } from "axios";
 import qs from "qs";
 import axios from "./axiosInstance";
-import {LoginData, SpreadSheetData, SpreadSheetPostData, TimelineData} from './types'
+import {LoginData, SpreadSheetData, SpreadSheetPostData, TimelineData, ServerError} from './types'
 
 const getToken = (): string => {
   const token = localStorage.getItem("access_token");
@@ -68,6 +69,7 @@ export async function registerNewUser(loginData: LoginData) {
     const response = await axios.post('/register', loginData);
     return response.data;
   } catch (error) {
-    throw new Error(`Failed to login: ${error}`);
+    const err = error as AxiosError<ServerError>;
+    throw new Error(err.response?.data.message);
   }
 }

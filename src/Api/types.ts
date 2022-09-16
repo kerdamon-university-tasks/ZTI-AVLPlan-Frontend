@@ -33,3 +33,12 @@ export type LoginData = {
   username: string;
   password: string;
 }
+
+export type ServerError = { 
+  timestamp: string,
+  status: number,
+  error: string,
+  trace: string,
+  message: string,
+  path: string
+ };
