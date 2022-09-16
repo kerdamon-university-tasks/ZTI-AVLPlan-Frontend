@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/ZTI-AVLPlan-Frontend/static/css/main.41ed6e60.css",
+    "main.js": "/ZTI-AVLPlan-Frontend/static/js/main.dd47768e.js",
+    "index.html": "/ZTI-AVLPlan-Frontend/index.html",
+    "main.41ed6e60.css.map": "/ZTI-AVLPlan-Frontend/static/css/main.41ed6e60.css.map",
+    "main.dd47768e.js.map": "/ZTI-AVLPlan-Frontend/static/js/main.dd47768e.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.41ed6e60.css",
+    "static/js/main.dd47768e.js"
+  ]
+}
