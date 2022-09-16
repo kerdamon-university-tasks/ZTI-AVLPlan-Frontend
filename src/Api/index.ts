@@ -12,17 +12,6 @@ const getToken = (): string => {
   return token;
 }
 
-export async function fetchTimeline(id:string|undefined): Promise<TimelineData> {
-  try{
-    const config = { headers: { Authorization: `Bearer ${getToken()}` } };
-    const response = await axios.get<TimelineData>('/avlitem/timeline/' + id, config);
-    let timeline = response.data;
-    return timeline;
-  } catch (error) {
-    throw new Error('Failed to fetch timelines');
-  }
-}
-
 export async function fetchSpreadSheet(id:string|undefined): Promise<SpreadSheetData> {
   try{
     const config = { headers: { Authorization: `Bearer ${getToken()}` } };
@@ -31,6 +20,21 @@ export async function fetchSpreadSheet(id:string|undefined): Promise<SpreadSheet
     spreadsheet.dateTimeFrom = new Date(spreadsheet.dateTimeFrom);
     spreadsheet.dateTimeTo = new Date(spreadsheet.dateTimeTo);
     return spreadsheet;
+  } catch (error) {
+    throw new Error('Failed to fetch spreadsheets');
+  }
+}
+
+export async function fetchAllSpreadSheets(): Promise<SpreadSheetData[]> {
+  try{
+    const config = { headers: { Authorization: `Bearer ${getToken()}` } };
+    const response = await axios.get<SpreadSheetData[]>('/avlitem/spreadsheets/', config);
+    let spreadsheets = response.data;
+    spreadsheets.forEach(spreadsheet => {
+      spreadsheet.dateTimeFrom = new Date(spreadsheet.dateTimeFrom);
+      spreadsheet.dateTimeTo = new Date(spreadsheet.dateTimeTo);
+    });
+    return spreadsheets;
   } catch (error) {
     throw new Error('Failed to fetch spreadsheets');
   }

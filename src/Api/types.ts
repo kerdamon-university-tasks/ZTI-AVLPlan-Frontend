@@ -6,6 +6,8 @@ export type TimelineData = {
 }
 
 export type SpreadSheetData = {
+  id: string;
+  eventName: string;
   dateTimeFrom: Date;
   dateTimeTo: Date;
   avltimelines: TimelineData[];
