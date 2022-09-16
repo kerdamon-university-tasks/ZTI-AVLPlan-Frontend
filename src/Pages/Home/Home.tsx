@@ -1,24 +1,25 @@
-import { Button, Card, Stack, TextField } from "@mui/material";
+import { Button, Card, Paper, Stack, TextField, Typography } from "@mui/material";
+import useAuth from "Hooks/useAuth";
 import { useState } from "react";
 
-import {Link } from "react-router-dom";
+import {Link, Navigate } from "react-router-dom";
 
 const Home = () => {
-  const [id, setId] = useState("");
 
-  const handleChange = (e:any) => {
-    setId(e.target.value);
+  const auth = useAuth();
+
+  if (auth.user) {
+    return <Navigate to='/control-panel' />
   }
 
   return (
     <div style={{margin: 40}}>
-      <Card sx={{padding: 5}}>
-        <Stack spacing={2}>
-          <TextField label="Timeline id" variant="outlined" onChange={handleChange} color='secondary'/>
-          <Button variant="outlined" component={Link} to={"/spreadsheet/" + id}>Go do timeline</Button>
-          <Button variant="outlined" component={Link} to={"/new-spreadsheet"}>Create new Timeline</Button>
+      <Paper color='primary.main'>
+        <Stack alignItems='center' padding={2}>
+          <Typography variant='h1'>Welcome!</Typography>
+          <Typography variant='h2'>Please log in to proceed</Typography>
         </Stack>
-      </Card>
+      </Paper>
     </div>
     )
   }
