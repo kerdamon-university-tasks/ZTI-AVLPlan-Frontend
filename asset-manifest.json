@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/ZTI-AVLPlan-Frontend/static/css/main.41ed6e60.css",
-    "main.js": "/ZTI-AVLPlan-Frontend/static/js/main.dd47768e.js",
+    "main.js": "/ZTI-AVLPlan-Frontend/static/js/main.33e3f4c3.js",
     "index.html": "/ZTI-AVLPlan-Frontend/index.html",
     "main.41ed6e60.css.map": "/ZTI-AVLPlan-Frontend/static/css/main.41ed6e60.css.map",
-    "main.dd47768e.js.map": "/ZTI-AVLPlan-Frontend/static/js/main.dd47768e.js.map"
+    "main.33e3f4c3.js.map": "/ZTI-AVLPlan-Frontend/static/js/main.33e3f4c3.js.map"
   },
   "entrypoints": [
     "static/css/main.41ed6e60.css",
-    "static/js/main.dd47768e.js"
+    "static/js/main.33e3f4c3.js"
   ]
 }
