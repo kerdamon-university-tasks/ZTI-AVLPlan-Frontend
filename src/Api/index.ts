@@ -60,7 +60,8 @@ export async function login(loginData: LoginData) {
     const response = await axios.post('/login', loginData);
     return response.data;
   } catch (error) {
-    throw new Error(`Failed to login: ${error}`);
+    const err = error as AxiosError<ServerError>;
+    throw new Error(err.response?.data.message);
   }
 }
 

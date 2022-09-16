@@ -17,7 +17,7 @@ type LoginFormValues = typeof defaultValues;
 
 const Login = () => {
   const auth = useAuth();
-  const {handleSubmit, register, formState: {errors}} = useForm({defaultValues});
+  const {handleSubmit, setError, register, formState: {errors}} = useForm({defaultValues});
   if(auth.user) return <Navigate to='/' />
 
   const fields = {
@@ -26,8 +26,14 @@ const Login = () => {
   }
 
   const onSubmit = async (formValues: LoginFormValues) => {
-    const token = await login({username: formValues.username, password: formValues.password})
-    auth.login({username: formValues.username, token});
+    try{
+      const token = await login({username: formValues.username, password: formValues.password})
+      auth.login({username: formValues.username, token});
+    } catch(error) {
+      let message;
+      if (error instanceof Error) message = error.message;
+      setError('username', { type: 'custom', message });
+    }
   };
 
   return (
@@ -38,6 +44,7 @@ const Login = () => {
           <TextField label="Username" variant="outlined" inputProps={{...fields.email}} />
           <TextField label="Password" type="password" variant="outlined" inputProps={{...fields.password}} />
           {errors.password && <Typography>{errors.password.message}</Typography>}
+          {errors.username && <Typography color="error.main">{errors.username.message}</Typography>}
           <Button type='submit' variant='contained'>Login</Button>
           <Button component={Link} to="/register">Don't have account? Register</Button>
         </Stack>
